@@ -9,20 +9,29 @@ public class CharacterSwap : MonoBehaviour
 
     [Header("Settings")]
     public KeyCode swapKey = KeyCode.F;
-    public bool startWithA = true;
+    public bool startWithCharacterA = true;
 
-    private GameObject activeCharacter;
+    [SerializeField] private GameObject activeCharacter;
     private Camera mainCamera;
     private CameraFollow camFollow;
 
     void Start()
     {
-        activeCharacter = startWithA ? characterA : characterB;
+        if (PlayerInputController.instance != null)
+        {
+
+        PlayerInputController.instance.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
+        }
+        else
+        {
+            Debug.LogWarning("ey, the player input script is probably missing!");
+        }
+            activeCharacter = startWithCharacterA ? characterA : characterB;
 
         if (characterA != null && characterB != null)
         {
-            characterA.SetActive(startWithA);
-            characterB.SetActive(!startWithA);
+            characterA.SetActive(startWithCharacterA);
+            characterB.SetActive(!startWithCharacterA);
         }
 
         mainCamera = Camera.main;
@@ -35,18 +44,12 @@ public class CharacterSwap : MonoBehaviour
         }
     }
 
-    void Update()
+    private void PlayerInputController_OnCharactersSwapped(object sender, System.EventArgs e)
     {
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.fKey.wasPressedThisFrame)
-                SwapCharacter();
-        }
-        else if (Input.GetKeyDown(swapKey))
-        {
-            SwapCharacter();
-        }
+        SwapCharacter();
     }
+
+
 
     void SwapCharacter()
     {
@@ -72,4 +75,22 @@ public class CharacterSwap : MonoBehaviour
 
         Debug.Log("Swapped to: " + activeCharacter.name);
     }
+    //todo, have events to call the current active character's ability since this script already has access to both of'em
+
+    private void OnDisable()
+    {
+        {
+            if (PlayerInputController.instance != null)
+            {
+
+                PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
+            }
+            else
+            {
+                Debug.LogWarning("ey, the player input script is probably missing!");
+            }
+        }
+            
+    }
+
 }

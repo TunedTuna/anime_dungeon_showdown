@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
     private AudioSource audioSource;
-    private Camera mainCamera;
+ 
 
     private Vector3 velocity;
     private Vector3 externalVelocity;
@@ -60,17 +60,17 @@ public class PlayerMovement : MonoBehaviour
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-        mainCamera = Camera.main;
+      
         usingNewInput = Keyboard.current != null || Gamepad.current != null;
     }
 
     void Update()
     {
-        ReadInput();
-        CheckGrounded();
-        HandleDash();
-        RotateToMouse();
-        HandleMovement();
+        ReadInput();            //should be on MainObject
+        CheckGrounded();        //i guess main object
+        HandleDash();           //ditto
+        
+        HandleMovement();       //main
         ApplyGravity();
         ApplyFinalMovement();
         UpdateAnimation();
@@ -173,42 +173,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void RotateToMouse()
-    {
-        Vector3 lookDirection = GetAimDirection();
-        if (lookDirection.sqrMagnitude > 0.0001f)
-        {
-            transform.rotation = Quaternion.LookRotation(lookDirection);
-        }
-    }
 
-    public Vector3 GetAimDirection()
-    {
-        if (mainCamera == null)
-            mainCamera = Camera.main;
 
-        if (mainCamera == null)
-            return transform.forward;
 
-        Vector2 mousePosition = Mouse.current != null
-            ? Mouse.current.position.ReadValue()
-            : (Vector2)Input.mousePosition;
-
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, new Vector3(0f, transform.position.y, 0f));
-
-        if (groundPlane.Raycast(ray, out float rayDistance))
-        {
-            Vector3 point = ray.GetPoint(rayDistance);
-            Vector3 lookDirection = point - transform.position;
-            lookDirection.y = 0f;
-
-            if (lookDirection.sqrMagnitude > 0.0001f)
-                return lookDirection.normalized;
-        }
-
-        return transform.forward;
-    }
 
     void StartDash()
     {

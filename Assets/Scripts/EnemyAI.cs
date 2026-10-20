@@ -22,6 +22,8 @@ public class EnemyAI : MonoBehaviour
 
     private float originalSpeed;
     private bool burning = false;
+    [Header("VIsual calls")]
+    [SerializeField] private ActorVisuals av;
 
     void Start()
     {
@@ -83,7 +85,7 @@ public class EnemyAI : MonoBehaviour
     {
         currentHealth -= damage;
         Debug.Log(gameObject.name + " took damage: " + damage);
-
+        av.OnTakeDamage();
         if (currentHealth <= 0)
         {
             Die();

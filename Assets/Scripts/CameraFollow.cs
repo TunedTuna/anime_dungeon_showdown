@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
 
     private Transform target;
     private Vector3 velocity = Vector3.zero;
+    [SerializeField] private Transform currentTarget;
 
     void LateUpdate()
     {
@@ -30,5 +31,6 @@ public class CameraFollow : MonoBehaviour
         {
             transform.position = target.position + offset;
         }
+        currentTarget = target;
     }
 }

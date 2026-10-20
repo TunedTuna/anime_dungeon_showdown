@@ -9,11 +9,12 @@ public class GameplayUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && ability1.IsReady())
+        if (Input.GetKeyDown(KeyCode.Q) && ability1.IsReady())
             ability1.UseAbility();
         if (Input.GetKeyDown(KeyCode.R) && ability2.IsReady())
             ability2.UseAbility();
-        if (Input.GetKeyDown(KeyCode.Q) && ability3.IsReady())
+        if (Input.GetKeyDown(KeyCode.T) && ability3.IsReady())
             ability3.UseAbility();
     }
+    //todo: remove this update and replace with an event system. one for on use and another for cooldown ready to play their respective sounds
 }

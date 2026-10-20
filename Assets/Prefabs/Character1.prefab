@@ -142,6 +142,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 0
+  gravity: -20
+  jumpHeight: 2
   animator: {fileID: 0}
 --- !u!143 &6442761190344965974
 CharacterController:

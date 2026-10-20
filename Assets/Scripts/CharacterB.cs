@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterB : MonoBehaviour
+public class CharacterB : MonoBehaviour, IAbilities
 {
+    //todo, remove all instants of inputs and move to a centralized location since these inputs will be shared amonst characters
     [Header("Base Attack")]
     public float baseDamage = 50f;
     public float attackRate = 1f;
@@ -42,7 +43,7 @@ public class CharacterB : MonoBehaviour
 
     void Update()
     {
-        HandleBaseAttack();
+    
 
         if (Input.GetKeyDown(ultKey) && canUseUlt)
             StartCoroutine(UseKamehameha());
@@ -53,6 +54,7 @@ public class CharacterB : MonoBehaviour
         if (Input.GetKeyDown(needleKey) && canUseNeedler)
             StartCoroutine(UseNeedler());
     }
+    //move timers into update?
 
     void HandleBaseAttack()
     {
@@ -71,7 +73,6 @@ public class CharacterB : MonoBehaviour
             attackTimer = attackRate;
         }
     }
-
     void BaseAttack()
     {
         if (shootEffect != null)
@@ -201,5 +202,18 @@ public class CharacterB : MonoBehaviour
         Gizmos.matrix = Matrix4x4.TRS(center, beamSpawn.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, size);
         Gizmos.matrix = oldMatrix;
+    }
+    public void BasicAttack_Oof() 
+    {
+        //HandleBaseAttack();
+    }
+    public void Special_One() 
+    {
+    }
+    public void Special_Two()
+    {  
+    }
+    public void Special_Three() 
+    {  
     }
 }

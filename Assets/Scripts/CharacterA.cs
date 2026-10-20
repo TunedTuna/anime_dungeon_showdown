@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//todo change all abilities into Interfaces
 public class CharacterA : MonoBehaviour
 {
     [Header("Base Attack (Hold Mouse)")]
@@ -21,6 +21,7 @@ public class CharacterA : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            
             attackTimer += Time.deltaTime;
 
             if (attackTimer >= attackRate)
@@ -46,7 +47,7 @@ public class CharacterA : MonoBehaviour
         {
             Vector3 dir = (hit.transform.position - transform.position).normalized;
 
-            if (Vector3.Dot(transform.forward, dir) > 0.5f)
+            if (Vector3.Dot(attackPoint.transform.forward, dir) > 0.5f)
             {
                 EnemyAI enemy = hit.GetComponent<EnemyAI>();
 
@@ -60,7 +61,7 @@ public class CharacterA : MonoBehaviour
     {
         if (attackPoint != null)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
         }
     }

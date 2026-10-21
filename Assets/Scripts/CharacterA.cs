@@ -49,7 +49,7 @@ public class CharacterA : MonoBehaviour
 
             if (Vector3.Dot(attackPoint.transform.forward, dir) > 0.5f)
             {
-                EnemyAI enemy = hit.GetComponent<EnemyAI>();
+                IDamageable enemy = hit.GetComponent<IDamageable>();
 
                 if (enemy != null)
                     enemy.TakeDamage(baseDamage);

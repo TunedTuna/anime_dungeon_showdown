@@ -39,6 +39,7 @@ public class DoorStuff : MonoBehaviour
         if (playerInRange)
         {
             HideText();
+            playerInRange=false;
             UseTheDoor();
 
         }

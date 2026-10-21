@@ -43,7 +43,7 @@ public class CharacterB : MonoBehaviour, IAbilities
 
     void Update()
     {
-    
+        HandleBaseAttack();
 
         if (Input.GetKeyDown(ultKey) && canUseUlt)
             StartCoroutine(UseKamehameha());
@@ -80,7 +80,7 @@ public class CharacterB : MonoBehaviour, IAbilities
 
         if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, Mathf.Infinity))
         {
-            EnemyAI enemy = hit.collider.GetComponent<EnemyAI>();
+            IDamageable enemy = hit.collider.GetComponent<IDamageable>();
 
             if (enemy != null)
                 enemy.TakeDamage(baseDamage);

@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour,IDamageable
 {
     [Header("Stats")]
     public float maxHealth = 100f;
@@ -24,6 +25,9 @@ public class EnemyAI : MonoBehaviour
     private bool burning = false;
     [Header("VIsual calls")]
     [SerializeField] private ActorVisuals av;
+    public delegate void EnemyDied();
+    public static event EnemyDied OnEnemyDied;
+    //notify the enemy spawner that they are dead
 
     void Start()
     {
@@ -70,7 +74,7 @@ public class EnemyAI : MonoBehaviour
     {
         canAttack = false;
 
-        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
+        IDamageable playerHealth = target.GetComponent<IDamageable>();
 
         if (playerHealth != null)
         {
@@ -80,8 +84,8 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
-    public void TakeDamage(float damage)
+    
+    public void TakeDamage(float damage)//now part of an interface
     {
         currentHealth -= damage;
         Debug.Log(gameObject.name + " took damage: " + damage);
@@ -127,6 +131,7 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
+        OnEnemyDied?.Invoke();
         Destroy(gameObject);
     }
 }

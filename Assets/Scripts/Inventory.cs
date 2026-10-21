@@ -19,13 +19,21 @@ public class Inventory : MonoBehaviour {
     public static int Coins = 0;
     
     public event Action OnInventoryChanged;
-    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI coinText; //tuna//this ref being on player causes problem, ecpecially if chani
+    [SerializeField] private bool isNewCOinText = false;
     
     private void Update() {
         
         // if (Input.GetKeyDown(KeyCode.Q)) {
         //     DropItem();
         // }
+    }
+    private void Start()
+    {
+        if (isNewCOinText)
+        {
+            coinText.text = $"{Coins}";
+        }
     }
 
     // if collides with an object that is PickUp-able will add it to inventory 
@@ -51,7 +59,15 @@ public class Inventory : MonoBehaviour {
             //Hides the pick up item in the scene
             Debug.Log(pickUp + " added to balance");
             Coins++;
-            coinText.text = "Coins: " + Coins;
+            if(isNewCOinText)
+            {
+                coinText.text = $"{Coins}";
+            }
+            else
+            {
+                coinText.text = "Coins: " + Coins;
+
+            }
         }
     }
     

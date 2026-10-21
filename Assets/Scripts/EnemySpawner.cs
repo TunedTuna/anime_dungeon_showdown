@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        EnemyAI.OnEnemyDied += EnemyAI_OnEnemyDied;
         AutoFindPlayers();
 
         if (enemyPrefab == null)
@@ -37,6 +38,11 @@ public class EnemySpawner : MonoBehaviour
         }
 
         StartCoroutine(WaveLoop());
+    }
+
+    private void EnemyAI_OnEnemyDied()
+    {
+        NotifyEnemyDied();
     }
 
     void AutoFindPlayers()
@@ -123,5 +129,9 @@ public class EnemySpawner : MonoBehaviour
     {
         aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
         Debug.Log("Enemy died. Remaining alive: " + aliveEnemies);
+    }
+    private void OnDisable()
+    {
+        EnemyAI.OnEnemyDied -= EnemyAI_OnEnemyDied;
     }
 }

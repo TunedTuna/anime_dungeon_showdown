@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour,IDamageable
 {
     [Header("Health")]
     public float maxHealth = 100f;
@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage)//now part of interface
     {
         currentHealth -= damage;
 

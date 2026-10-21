@@ -7,7 +7,8 @@ public class Chest : MonoBehaviour
     private bool playerInRange = false;
     private bool hasBeenOpened = false;
     public AudioSource ChestSource;
-    public GameObject pressChestText;
+    public GameObject pressChestText; 
+    [SerializeField] private GameObject chestLid;//rotate to -61
     private void Start()
     {
         PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
@@ -44,6 +45,11 @@ public class Chest : MonoBehaviour
 
     void OpenChest() {
         playChestSound();
+        if(chestLid != null)
+        {
+            chestLid.transform.localEulerAngles = new Vector3(-60f, 0f, 0f);
+        }
+        
         //play animation call
         //play sound call to sound manager?
         HideText();

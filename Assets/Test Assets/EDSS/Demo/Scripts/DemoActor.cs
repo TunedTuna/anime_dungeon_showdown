@@ -52,6 +52,7 @@ namespace EightDirectionalSpriteSystem
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("pressing SPACE");
                 State nextState = currentState;
                 switch (currentState)
                 {

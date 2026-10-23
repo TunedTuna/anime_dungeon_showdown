@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+/// <summary>
+/// holds the logic for swapping between two characters
+/// -because it has reference to both characters, use it to simplify inputs?
+/// --because of events, this can get dumb really really fast
+/// </summary>
 public class CharacterSwap : MonoBehaviour
 {
     [Header("Characters")]
@@ -20,13 +24,18 @@ public class CharacterSwap : MonoBehaviour
         if (PlayerInputController.instance != null)
         {
 
-        PlayerInputController.instance.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
+            PlayerInputController.instance.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
+            //---input for specials not implemented yet---
+            //PlayerInputController.instance.OnBasicAttack += PlayerInputController_OnBasicAttack;
+            //PlayerInputController.instance.OnSpecialOne += PlayerInputController_OnSpecialOne;
+            //PlayerInputController.instance.OnSpecialTwo += PlayerInputController_OnSpecialTwo;
+            //PlayerInputController.instance.OnSpecialThree += PlayerInputController_OnSpecialThree;
         }
         else
         {
             Debug.LogWarning("ey, the player input script is probably missing!");
         }
-            activeCharacter = startWithCharacterA ? characterA : characterB;
+        activeCharacter = startWithCharacterA ? characterA : characterB;
 
         if (characterA != null && characterB != null)
         {
@@ -42,6 +51,26 @@ public class CharacterSwap : MonoBehaviour
         {
             camFollow.SetTarget(activeCharacter.transform);
         }
+    }
+
+    private void PlayerInputController_OnSpecialThree(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void PlayerInputController_OnSpecialTwo(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void PlayerInputController_OnSpecialOne(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void PlayerInputController_OnBasicAttack(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
     }
 
     private void PlayerInputController_OnCharactersSwapped(object sender, System.EventArgs e)
@@ -82,15 +111,20 @@ public class CharacterSwap : MonoBehaviour
         {
             if (PlayerInputController.instance != null)
             {
-
-                PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
+                //don't forget to dislike and unsubscribe!
+                //PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
+                //PlayerInputController.instance.OnBasicAttack -= PlayerInputController_OnBasicAttack;
+                //PlayerInputController.instance.OnSpecialOne -= PlayerInputController_OnSpecialOne;
+                //PlayerInputController.instance.OnSpecialTwo -= PlayerInputController_OnSpecialTwo;
+                //PlayerInputController.instance.OnSpecialThree += PlayerInputController_OnSpecialThree;
             }
             else
             {
-                Debug.LogWarning("ey, the player input script is probably missing!");
+                Debug.LogWarning("Ey! the player input script is probably missing!");
             }
         }
-            
+
     }
+
 
 }

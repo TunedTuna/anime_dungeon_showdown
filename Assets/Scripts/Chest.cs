@@ -7,16 +7,23 @@ public class Chest : MonoBehaviour
     private bool playerInRange = false;
     private bool hasBeenOpened = false;
     public AudioSource ChestSource;
-    public GameObject pressChestText; 
+    public GameObject pressChestText;
+    [SerializeField] private TextMeshProUGUI panelText;
+    private string notificationText = "Press E to open Chest";
     [SerializeField] private GameObject chestLid;//rotate to -61
     private void Start()
     {
         PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
+        if (NotificationPanelUI.Instance != null)
+        {
+            pressChestText = NotificationPanelUI.Instance.GetPanelGameObject();
+            panelText = NotificationPanelUI.Instance.GetTextMeshProUGUIObject();
+        }
     }
 
     private void PlayerInputController_OnInteract(object sender, EventArgs e)
     {
-        if (playerInRange  && !hasBeenOpened)
+        if (playerInRange && !hasBeenOpened)
         {
             OpenChest();
         }
@@ -24,11 +31,12 @@ public class Chest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")&&!hasBeenOpened)
+        if (other.CompareTag("Player") && !hasBeenOpened)
         {
             playerInRange = true;
             pressChestText.SetActive(true);
-            Debug.Log("Press E to open chest");
+            //Debug.Log("Press E to open chest");
+            panelText.text = notificationText;
         }
     }
 
@@ -41,15 +49,16 @@ public class Chest : MonoBehaviour
         }
     }
 
-  
 
-    void OpenChest() {
+
+    void OpenChest()
+    {
         playChestSound();
-        if(chestLid != null)
+        if (chestLid != null)
         {
             chestLid.transform.localEulerAngles = new Vector3(-60f, 0f, 0f);
         }
-        
+
         //play animation call
         //play sound call to sound manager?
         HideText();
@@ -57,8 +66,9 @@ public class Chest : MonoBehaviour
 
         Debug.Log("Chest opened!");
     }
-    
-    public void playChestSound() {
+
+    public void playChestSound()
+    {
         Debug.Log("PLAY SOUND");
         ChestSource.Play();
     }

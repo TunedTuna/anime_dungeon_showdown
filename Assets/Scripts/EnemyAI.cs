@@ -25,9 +25,10 @@ public class EnemyAI : MonoBehaviour,IDamageable
     private bool burning = false;
     [Header("VIsual calls")]
     [SerializeField] private ActorVisuals av;
+
+    //notify the enemy spawner that they are dead
     public delegate void EnemyDied();
     public static event EnemyDied OnEnemyDied;
-    //notify the enemy spawner that they are dead
 
     void Start()
     {
@@ -78,6 +79,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
 
         if (playerHealth != null)
         {
+            
             playerHealth.TakeDamage(attackDamage);
         }
 
@@ -85,7 +87,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
         canAttack = true;
     }
     
-    public void TakeDamage(float damage)//now part of an interface
+    public void TakeDamage(float damage)//now part of an interface //IDamageable contract
     {
         currentHealth -= damage;
         Debug.Log(gameObject.name + " took damage: " + damage);
@@ -129,6 +131,17 @@ public class EnemyAI : MonoBehaviour,IDamageable
         moveSpeed = originalSpeed;
     }
 
+    private Vector3 OutGoingKnockBackDirectionCalculation()
+    {
+        float distance = Vector3.Distance(transform.position, target.position);
+        Vector3 dir = (target.position - transform.position).normalized;
+        dir.y = 0f;
+        return dir; 
+    }
+    public void TakeKnockBack(Vector3 knockBackDir, float knockBackStrength) //IDamageable contract
+    {
+
+    }
     void Die()
     {
         OnEnemyDied?.Invoke();

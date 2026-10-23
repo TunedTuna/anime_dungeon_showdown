@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public float airControl = 0.5f;
 
     [Header("Dash")]
-    public float dashSpeed = 20f;
+    public float dashSpeed = 40f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
     public AudioClip dashSFX;
     public GameObject dashVFX;
+    [SerializeField] private bool isInvincible = false;
 
     [Header("Knockback")]
     public float knockbackDecay = 20f;
@@ -27,21 +28,23 @@ public class PlayerMovement : MonoBehaviour
     [Header("Gravity & Jump")]
     public float gravity = -20f;
     public float jumpHeight = 2f;
+    [Header("Warp?")]
+
 
     [Header("Animation")]
     public Animator animator;
 
     private CharacterController controller;
     private AudioSource audioSource;
- 
 
-    private Vector3 velocity;
+    [Header("Private Values")]
+    [SerializeField] private Vector3 velocity;
     private Vector3 externalVelocity;
 
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
     private bool canDash = true;
     private bool isDashing = false;
-    private float dashTimeLeft;
+    [SerializeField] private float dashTimeLeft;
     private Vector3 dashDirection;
 
     private Vector2 moveInput;
@@ -75,14 +78,13 @@ public class PlayerMovement : MonoBehaviour
         ApplyFinalMovement();
         UpdateAnimation();
     }
-
     void CheckGrounded()
     {
         isGrounded = groundCheck != null &&
                      Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+            velocity.y = 0f;
     }
 
     void HandleDash()
@@ -110,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalVel = Vector3.MoveTowards(horizontalVel, targetVelocity, currentAccel * Time.deltaTime);
         velocity.x = horizontalVel.x;
         velocity.z = horizontalVel.z;
+        
     }
 
     void ApplyGravity()
@@ -182,9 +185,14 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         canDash = false;
         dashTimeLeft = dashDuration;
+        isInvincible = true;
+        //do an animation call, blink white?
 
         Vector3 moveDir = (transform.right * moveInput.x + transform.forward * moveInput.y).normalized;
         dashDirection = moveDir.sqrMagnitude < 0.01f ? transform.forward : moveDir.normalized;
+
+        velocity.x = dashDirection.x * dashSpeed;
+        velocity.z = dashDirection.z * dashSpeed;
 
         if (dashSFX != null)
             audioSource.PlayOneShot(dashSFX);
@@ -199,6 +207,9 @@ public class PlayerMovement : MonoBehaviour
     void EndDash()
     {
         isDashing = false;
+        dashTimeLeft = 0f;
+        isInvincible = false;
+        velocity = Vector3.zero;//todo: fix this to keep max base speed velocity after input and moving
         Invoke(nameof(ResetDash), dashCooldown);
     }
 
@@ -207,7 +218,17 @@ public class PlayerMovement : MonoBehaviour
     public void AddExternalForce(Vector3 force) => externalVelocity += force;
 
     public bool IsDashing() => isDashing;
+    public void WarpPlayer(Transform newPoint)
+    {
+        controller.enabled = false;
+        gameObject.transform.position=newPoint.position;
+        controller.enabled = true;
 
+    }
+    public bool CheckIfInvincible()
+    {
+        return isInvincible;
+    }
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
@@ -216,4 +237,5 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
         }
     }
+
 }

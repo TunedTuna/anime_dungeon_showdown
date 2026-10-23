@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour {
     
     public event Action OnInventoryChanged;
     public TextMeshProUGUI coinText; //tuna//this ref being on player causes problem, ecpecially if chani
-    [SerializeField] private bool isNewCOinText = false;
+    [SerializeField] private bool isNewUIConnectionBeingUsed = false; //connects via instance for scene change
     
     private void Update() {
         
@@ -30,9 +30,11 @@ public class Inventory : MonoBehaviour {
     }
     private void Start()
     {
-        if (isNewCOinText)
+        if (isNewUIConnectionBeingUsed)
         {
+            coinText = CoinUI.Instance.GetCoinTextObject();
             coinText.text = $"{Coins}";
+            //prob same idea for inventory
         }
     }
 
@@ -59,7 +61,7 @@ public class Inventory : MonoBehaviour {
             //Hides the pick up item in the scene
             Debug.Log(pickUp + " added to balance");
             Coins++;
-            if(isNewCOinText)
+            if(isNewUIConnectionBeingUsed)
             {
                 coinText.text = $"{Coins}";
             }

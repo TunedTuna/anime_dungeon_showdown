@@ -9,6 +9,10 @@ public class CharacterA : MonoBehaviour
     public Transform attackPoint;
     public GameObject slashEffect;
 
+    [SerializeField] private float knockBackStrength= 15f; //should have a base lvl determined by character. then adjust by item
+
+    public string characterName = "Ruby";
+
     private float attackTimer;
     
     
@@ -46,13 +50,17 @@ public class CharacterA : MonoBehaviour
         foreach (var hit in hits)
         {
             Vector3 dir = (hit.transform.position - transform.position).normalized;
-
+            Debug.Log($"Attack position?: {attackPoint.transform.forward}");
             if (Vector3.Dot(attackPoint.transform.forward, dir) > 0.5f)
             {
                 IDamageable enemy = hit.GetComponent<IDamageable>();
 
                 if (enemy != null)
+                {
+                    //Vector3 normAim= attackPoint.transform.position.normalized;
                     enemy.TakeDamage(baseDamage);
+                    enemy.TakeKnockBack(attackPoint.transform.forward, knockBackStrength);
+                }
             }
         }
     }

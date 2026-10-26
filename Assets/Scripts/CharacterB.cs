@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterB : MonoBehaviour, IAbilities
+public class CharacterB : MonoBehaviour, IAbilities,ICharacterValues
 {
     //todo, remove all instants of inputs and move to a centralized location since these inputs will be shared amonst characters
     [Header("Base Attack")]
@@ -40,6 +40,8 @@ public class CharacterB : MonoBehaviour, IAbilities
     public float needleSpeed = 25f;
     public float needleCooldown = 5f;
     private bool canUseNeedler = true;
+
+    public string characterName = "Guy Feiri";
 
     void Update()
     {
@@ -202,6 +204,11 @@ public class CharacterB : MonoBehaviour, IAbilities
         Gizmos.matrix = Matrix4x4.TRS(center, beamSpawn.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, size);
         Gizmos.matrix = oldMatrix;
+    }
+
+    public string GetCharacterName()
+    {
+        return characterName;
     }
     public void BasicAttack_Oof() 
     {

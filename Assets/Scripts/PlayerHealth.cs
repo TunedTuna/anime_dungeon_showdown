@@ -4,16 +4,26 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 {
     [Header("Health")]
     public float maxHealth = 100f;
-    private float currentHealth;
+    [SerializeField ]private float currentHealth;
     public delegate void PlayerDamaged(float hp);
     public static event PlayerDamaged OnPlayerDamaged;
 
-    private PlayerMovement PlayerMovement;
+    [SerializeField] private KnockBackHandler knockBackHandler;
 
-    void OnEnable()
+    private PlayerMovement PlayerMovement;
+    private void Awake()
     {
         currentHealth = maxHealth;
+    }
+    private void Start()
+    {
+        
+    }
+    void OnEnable()
+    {
+        
         PlayerMovement=GetComponent<PlayerMovement>();
+        knockBackHandler = GetComponent<KnockBackHandler>();
     }
 
     public void TakeDamage(float damage)//now part of interface
@@ -31,10 +41,14 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     }
     public void TakeKnockBack(Vector3 inny, float knockBackStrength) //IDamageable contract
     {
-      
+      knockBackHandler.TakeKnockBack(inny, knockBackStrength);
 
     }
-
+    public void PassOnUIdata()
+    {
+        Debug.Log(GetComponent<ICharacterValues>().GetCharacterName()+" "+ maxHealth +" "+ currentHealth);
+        HealthBarUI.Instance.DecorateWithTestCharacter(GetComponent<ICharacterValues>().GetCharacterName(), maxHealth,currentHealth);
+    }
     void Die()
     {
         Debug.Log(gameObject.name + " died");

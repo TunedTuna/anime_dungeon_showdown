@@ -1,6 +1,6 @@
 using UnityEngine;
 //todo change all abilities into Interfaces
-public class CharacterA : MonoBehaviour
+public class CharacterA : MonoBehaviour, ICharacterValues
 {
     [Header("Base Attack (Hold Mouse)")]
     public float baseDamage = 50f;
@@ -63,6 +63,10 @@ public class CharacterA : MonoBehaviour
                 }
             }
         }
+    }
+    public string GetCharacterName()
+    {
+        return characterName;
     }
 
     void OnDrawGizmosSelected()

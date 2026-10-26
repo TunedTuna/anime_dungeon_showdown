@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-
+//there is one of these, but more than 1 thing will edit it...
 public class NotificationPanelUI : MonoBehaviour
 {
 

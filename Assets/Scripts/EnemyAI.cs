@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour,IDamageable
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float chaseRange = 30f;
+    [Header("KnockbackRef")]
+    [SerializeField] private KnockBackHandler knockBackHandler;
 
     [Header("Attack")]
     public float attackRange = 2f;
@@ -34,6 +36,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
     {
         currentHealth = maxHealth;
         originalSpeed = moveSpeed;
+        knockBackHandler = GetComponent<KnockBackHandler>();
     }
 
     void Update()
@@ -81,6 +84,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
         {
             
             playerHealth.TakeDamage(attackDamage);
+            playerHealth.TakeKnockBack(transform.forward, attackDamage);
         }
 
         yield return new WaitForSeconds(attackCooldown);
@@ -140,7 +144,8 @@ public class EnemyAI : MonoBehaviour,IDamageable
     }
     public void TakeKnockBack(Vector3 knockBackDir, float knockBackStrength) //IDamageable contract
     {
-
+        //this is so dumb...
+        knockBackHandler.TakeKnockBack(knockBackDir, knockBackStrength);
     }
     void Die()
     {

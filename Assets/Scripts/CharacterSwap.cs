@@ -9,7 +9,9 @@ public class CharacterSwap : MonoBehaviour
 {
     [Header("Characters")]
     public GameObject characterA;
+    public string characterNameA;
     public GameObject characterB;
+    public string characterNameB;
 
     [Header("Settings")]
     public KeyCode swapKey = KeyCode.F;
@@ -18,6 +20,7 @@ public class CharacterSwap : MonoBehaviour
     [SerializeField] private GameObject activeCharacter;
     private Camera mainCamera;
     private CameraFollow camFollow;
+
 
     void Start()
     {
@@ -41,6 +44,9 @@ public class CharacterSwap : MonoBehaviour
         {
             characterA.SetActive(startWithCharacterA);
             characterB.SetActive(!startWithCharacterA);
+            characterNameA = characterA.GetComponent<ICharacterValues>().GetCharacterName();
+            characterNameB = characterB.GetComponent<ICharacterValues>().GetCharacterName();
+            activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
         }
 
         mainCamera = Camera.main;
@@ -98,6 +104,7 @@ public class CharacterSwap : MonoBehaviour
         nextCharacter.transform.SetPositionAndRotation(currentPos, currentRot);
 
         activeCharacter = nextCharacter;
+        activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
 
         if (camFollow != null)
             camFollow.SetTarget(activeCharacter.transform);
@@ -125,6 +132,8 @@ public class CharacterSwap : MonoBehaviour
         }
 
     }
+
+
 
 
 }

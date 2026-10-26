@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Knockback")]
     public float knockbackDecay = 20f;
+    [SerializeField] private KnockBackHandler knockBackHandler;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        knockBackHandler = GetComponent<KnockBackHandler>();
         controller = GetComponent<CharacterController>();
         controller.stepOffset = 0.1f;
 
@@ -125,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyFinalMovement()
     {
+        if (knockBackHandler.IsKnockBackActive() || controller.enabled==false) return;//if knockback is active OR controller is off. skipp
+        //Debug.Log("knock back activity: "+(knockBackHandler.IsKnockBackActive() + " || controller activiry: " + controller.enabled));
         externalVelocity = Vector3.MoveTowards(externalVelocity, Vector3.zero, knockbackDecay * Time.deltaTime);
         Vector3 finalVelocity = velocity + externalVelocity;
         controller.Move(finalVelocity * Time.deltaTime);

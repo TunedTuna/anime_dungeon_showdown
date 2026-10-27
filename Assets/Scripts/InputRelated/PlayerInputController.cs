@@ -17,6 +17,7 @@ public class PlayerInputController : MonoBehaviour
 {
     public static PlayerInputController instance {  get; private set; }
     private InputSystem_Actions inputActions;
+    InputSystem_Actions.PlayerActions inputActPlayer;
     public event EventHandler OnBasicAttack;
     public event EventHandler OnSpecialOne;
     public event EventHandler OnSpecialTwo;
@@ -28,6 +29,11 @@ public class PlayerInputController : MonoBehaviour
     {
         instance = this;
          inputActions= new InputSystem_Actions();
+        inputActPlayer = inputActions.Player;
+
+    }
+    private void OnEnable()
+    {
         inputActions.Player.Enable();
         //combat
         inputActions.Player.Attack.performed += Attack_performed;
@@ -41,7 +47,6 @@ public class PlayerInputController : MonoBehaviour
         //close?
         //why am i doubling the events
     }
-
     private void SwapCharacters_performed(InputAction.CallbackContext obj)
     {
         OnCharactersSwapped?.Invoke(this, EventArgs.Empty);
@@ -80,6 +85,7 @@ public class PlayerInputController : MonoBehaviour
         inputActions.Player.SpecialThree.performed -= SpecialThree_performed;
         //other
         inputActions.Player.Interact.performed -= Interact_performed;
+        inputActions.Player.SwapCharacters.performed -= SwapCharacters_performed;
     }
 
 

@@ -4,16 +4,8 @@ using UnityEngine;
 public class NotificationPanelUI : MonoBehaviour
 {
 
-    public static NotificationPanelUI Instance { get; private set; }
     [SerializeField] private TextMeshProUGUI notificationText;
-    private void Awake()
-    {
-        Instance = this;
-    }
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
+
     public GameObject GetPanelGameObject()
     {
         return gameObject;
@@ -22,6 +14,18 @@ public class NotificationPanelUI : MonoBehaviour
     {
         return notificationText;
     }
-       
-    
+
+    public void HideUI()
+    {
+        gameObject.SetActive(false);
+    }
+    public void ShowUI()
+    {
+        gameObject.SetActive(true);
+    }
+    private void OnDisable()
+    {
+        HideUI();
+    }
+
 }

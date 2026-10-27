@@ -11,12 +11,9 @@ public class DoorStuff : MonoBehaviour
     void Start()
     {
         PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
-        if (NotificationPanelUI.Instance != null)
-        {
-            notifcationPanel = NotificationPanelUI.Instance.GetPanelGameObject();
-            panelText = NotificationPanelUI.Instance.GetTextMeshProUGUIObject();
-           
-        }
+        NotificationPanelUI temp = ParentUI.Instance.PassRefDataNotificationUI();
+        notifcationPanel = temp.GetPanelGameObject();
+        panelText = temp.GetTextMeshProUGUIObject();
     }
     void OnTriggerEnter(Collider other)
     {

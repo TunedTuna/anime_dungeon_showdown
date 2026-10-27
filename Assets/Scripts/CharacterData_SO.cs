@@ -4,6 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu()]
 public class CharacterData_SO : ScriptableObject
 {
+    
     [SerializeField] private string characterName;
     [SerializeField] private CharacterRole_Enum characterRole; //melee vs ranged
 
@@ -35,7 +36,45 @@ public class CharacterData_SO : ScriptableObject
 
     [Header("Animation")]
     [SerializeField] public Animator animator;
-    [SerializeField] private Image pfp;
+    [SerializeField] private Sprite rosterSelectPfp; // for character select portrait
+    [SerializeField] private Sprite spritePreview; // for that middle guy
+    //getters
+
+    public string CharacterName => characterName;
+    public CharacterRole_Enum CharacterRole => characterRole;
+
+    [Header("Base Attack")]
+    public float BaseDamage => baseDamage;
+    public float CurrentDamage => currentDamage;
+    public float AttackRate => attackRate;
+    public float AttackTimer => attackTimer;
+    public float KnockbackStrength => knockbackStrength;
+
+    [Header("Health")]
+    public float CurrentHp => currentHp;
+    public float MaxHp => maxHp;
+
+    [Header("Movement")]
+    public float MaxSpeed => maxSpeed;
+    public float Acceleration => acceleration;
+    public float AirControl => airControl;
+    public float BaseSpeed => baseSpeed;
+
+    [Header("Dash")]
+    public float DashSpeed => dashSpeed;
+    public float DashDuration => dashDuration;
+    public float DashCooldown => dashCooldown;
+
+    [Header("Gravity & Jump")]
+    public float Gravity => gravity;
+    public float JumpHeight => jumpHeight;
+
+    [Header("Animation")]
+    public Animator Animator => animator;
+    public Sprite RosterSelectPfp => rosterSelectPfp;
+    public Sprite SpritePreview => spritePreview;
+
+
 
     //[Header("Specials")]
     //[SerializeField]

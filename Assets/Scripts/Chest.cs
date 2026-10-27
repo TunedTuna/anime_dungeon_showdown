@@ -14,11 +14,9 @@ public class Chest : MonoBehaviour
     private void Start()
     {
         PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
-        if (NotificationPanelUI.Instance != null)
-        {
-            pressChestText = NotificationPanelUI.Instance.GetPanelGameObject();
-            panelText = NotificationPanelUI.Instance.GetTextMeshProUGUIObject();
-        }
+        NotificationPanelUI temp = ParentUI.Instance.PassRefDataNotificationUI();
+        pressChestText = temp.GetPanelGameObject();
+        panelText = temp.GetTextMeshProUGUIObject();
     }
 
     private void PlayerInputController_OnInteract(object sender, EventArgs e)

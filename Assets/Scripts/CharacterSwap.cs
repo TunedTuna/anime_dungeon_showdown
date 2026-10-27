@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CharacterSwap : MonoBehaviour
 {
+    public static CharacterSwap instance {  get; private set; }//prob regret this
     [Header("Characters")]
     public GameObject characterA;
     public string characterNameA;
@@ -14,7 +15,7 @@ public class CharacterSwap : MonoBehaviour
     public string characterNameB;
 
     [Header("Settings")]
-    public KeyCode swapKey = KeyCode.F;
+    //public KeyCode swapKey = KeyCode.F;
     public bool startWithCharacterA = true;
 
     [SerializeField] private GameObject activeCharacter;
@@ -24,6 +25,7 @@ public class CharacterSwap : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         if (PlayerInputController.instance != null)
         {
 
@@ -119,7 +121,7 @@ public class CharacterSwap : MonoBehaviour
             if (PlayerInputController.instance != null)
             {
                 //don't forget to dislike and unsubscribe!
-                //PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
+                PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
                 //PlayerInputController.instance.OnBasicAttack -= PlayerInputController_OnBasicAttack;
                 //PlayerInputController.instance.OnSpecialOne -= PlayerInputController_OnSpecialOne;
                 //PlayerInputController.instance.OnSpecialTwo -= PlayerInputController_OnSpecialTwo;
@@ -131,6 +133,17 @@ public class CharacterSwap : MonoBehaviour
             }
         }
 
+    }
+
+    public void DisablePlayerMovement()
+    {
+        activeCharacter.GetComponent<PlayerMovement>().enabled = false;
+        
+    }
+    public void EnablePlayerMovement()
+    {
+        activeCharacter.GetComponent<PlayerMovement>().enabled = true;
+        
     }
 
 

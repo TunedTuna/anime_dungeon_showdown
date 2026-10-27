@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     }
     public void PassOnUIdata()
     {
-        Debug.Log(GetComponent<ICharacterValues>().GetCharacterName()+" "+ maxHealth +" "+ currentHealth);
+        //Debug.Log(GetComponent<ICharacterValues>().GetCharacterName()+" "+ maxHealth +" "+ currentHealth);
         HealthBarUI.Instance.DecorateWithTestCharacter(GetComponent<ICharacterValues>().GetCharacterName(), maxHealth,currentHealth);
     }
     void Die()

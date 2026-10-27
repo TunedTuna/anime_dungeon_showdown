@@ -3,30 +3,56 @@ using UnityEngine;
 //too lazy to do the raycast :/
 public class CharacterSelectHandler : MonoBehaviour
 {
+    private const string PLAYER_TAG = "Player";
     private bool playerInRange = false;
     public GameObject notifcationPanel;
     [SerializeField] private TextMeshProUGUI panelText;
-    private string doorText = "Press E to Select your characters!";
+    NotificationPanelUI temp;
+    private string openCharacterSelectText = "Hold E to Select your characters!";
     //
     void Start()
     {
         PlayerInputController.instance.OnInteract += PlayerControllerInput_OnInteract;
-        if (NotificationPanelUI.Instance != null)
-        {
-            notifcationPanel = NotificationPanelUI.Instance.GetPanelGameObject();
-            panelText = NotificationPanelUI.Instance.GetTextMeshProUGUIObject();
 
-        }
+        temp = ParentUI.Instance.PassRefDataNotificationUI();
+        notifcationPanel = temp.GetPanelGameObject();
+        panelText = temp.GetTextMeshProUGUIObject();
     }
 
     private void PlayerControllerInput_OnInteract(object sender, System.EventArgs e)
     {
-        
+        if (playerInRange)
+        {
+            //CharacterSelectUI.Instance.ShowUI();
+            //todo replace w/ parent handler
+            ParentUI.Instance.ActivateCharacterSelectUI();
+            InputSwapHandler.Instance.EnableUserInterfaceInput();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if ((other.CompareTag(PLAYER_TAG)))
+        {
+            playerInRange = true;
+            temp.ShowUI();
+            panelText.text = openCharacterSelectText;
+        }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if ((other.CompareTag(PLAYER_TAG)))
+        {
+            playerInRange = false;
+            temp.HideUI();  
+            panelText.text = "Empty";
+        }
+    }
+    private void OnDisable()
+    {
+        PlayerInputController.instance.OnInteract -= PlayerControllerInput_OnInteract;
+    }
+
+
+
 }

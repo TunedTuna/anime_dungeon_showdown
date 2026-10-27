@@ -1,18 +1,13 @@
 using UnityEngine;
 
-public class ChracterSelectUI : MonoBehaviour
+public class CharacterSelectUI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        HideUI();
-    }
+
+
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 
     public void HideUI()
     {
@@ -21,5 +16,13 @@ public class ChracterSelectUI : MonoBehaviour
     public void ShowUI()
     {
         gameObject.SetActive(true);
+    }
+    private void OnDisable()
+    {
+        HideUI();
+    }
+    private void OnEnable()
+    {
+        ShowUI();
     }
 }

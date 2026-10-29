@@ -9,6 +9,8 @@ public class UserInterfaceInputController : MonoBehaviour
     InputSystem_Actions.UIActions inputActUI;
     public event EventHandler OnCancel;
     public event EventHandler OnCloseAll;
+    public event EventHandler OnSwap;//this name gonna bite me in ass later
+    public event EventHandler OnSubmit;
 
     private void Awake()
     {
@@ -23,6 +25,18 @@ public class UserInterfaceInputController : MonoBehaviour
         inputActUI.Enable();
         inputActUI.Cancel.performed += Cancel_performed;
         inputActUI.CloseAll.performed += CloseAll_performed;
+        inputActUI.Swap.performed += Swap_performed;
+        inputActUI.Submit.performed += Submit_performed;
+    }
+
+    private void Submit_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnSubmit?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Swap_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+       OnSwap?.Invoke(this,EventArgs.Empty);
     }
 
     private void CloseAll_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -40,6 +54,8 @@ public class UserInterfaceInputController : MonoBehaviour
         inputActUI.Disable();// watch this come bac later
         inputActUI.Cancel.performed -= Cancel_performed;
         inputActUI.CloseAll.performed -= CloseAll_performed;
+        inputActUI.Swap.performed -= Swap_performed;
+        inputActUI.Submit.performed -= Submit_performed;
     }
 
 }

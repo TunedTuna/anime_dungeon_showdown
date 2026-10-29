@@ -8,12 +8,17 @@ public class GameplayUI : MonoBehaviour
     public AbilityUI ability3;
     public AbilityUI ability4;
 
+    [Header("Ability data references")]
+    [SerializeField] private Abilities_SO abilitySO_1;
+    [SerializeField] private Abilities_SO abilitySO_2;
+    [SerializeField] private Abilities_SO abilitySO_3;
     private void Awake()
     {
         Instance = this;
     }
     void Update()
     {
+    //todo: remove this update and replace with an event system. one for on use and another for cooldown ready to play their respective sounds
         if (Input.GetKeyDown(KeyCode.Q) && ability1.IsReady())
             ability1.UseAbility();
         if (Input.GetKeyDown(KeyCode.R) && ability2.IsReady())
@@ -30,5 +35,4 @@ public class GameplayUI : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    //todo: remove this update and replace with an event system. one for on use and another for cooldown ready to play their respective sounds
 }

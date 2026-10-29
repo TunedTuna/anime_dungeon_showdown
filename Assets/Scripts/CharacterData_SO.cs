@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu()]
 public class CharacterData_SO : ScriptableObject
 {
-    
+    //todo make a "behavior script to "collab" with this
     [SerializeField] private string characterName;
     [SerializeField] private CharacterRole_Enum characterRole; //melee vs ranged
 

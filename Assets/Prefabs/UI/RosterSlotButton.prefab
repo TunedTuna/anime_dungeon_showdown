@@ -45,6 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1891455916743573543}
+  - component: {fileID: 289919317458550662}
   m_Layer: 5
   m_Name: RosterSlotButton
   m_TagString: Untagged
@@ -72,6 +73,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &289919317458550662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276639066514547883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c94d1e7e6e0ee6458850cf2993a3b97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData_SO: {fileID: 0}
+  nameTextBox: {fileID: 8055065502554089990}
+  pfpFrame: {fileID: 9008432549377397489}
+  rosterBtm: {fileID: 403999494736890098}
 --- !u!1 &526326960106349849
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +250,7 @@ GameObject:
   - component: {fileID: 3604921636597412203}
   - component: {fileID: 9008432549377397489}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PfpFrameImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

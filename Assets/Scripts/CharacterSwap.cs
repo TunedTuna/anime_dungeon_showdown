@@ -14,6 +14,10 @@ public class CharacterSwap : MonoBehaviour
     public GameObject characterB;
     public string characterNameB;
 
+    [Header("Temp Character Data")]
+    [SerializeField] private CharacterData_SO CharacterData_A;
+    [SerializeField] protected CharacterData_SO CharacterData_B;
+
     [Header("Settings")]
     //public KeyCode swapKey = KeyCode.F;
     public bool startWithCharacterA = true;
@@ -22,10 +26,13 @@ public class CharacterSwap : MonoBehaviour
     private Camera mainCamera;
     private CameraFollow camFollow;
 
-
-    void Start()
+    private void Awake()
     {
         instance = this;
+        
+    }
+    void Start()
+    {
         if (PlayerInputController.instance != null)
         {
 
@@ -144,6 +151,17 @@ public class CharacterSwap : MonoBehaviour
     {
         activeCharacter.GetComponent<PlayerMovement>().enabled = true;
         
+    }
+
+    public void RefreshCharacterData(CharacterData_SO a, CharacterData_SO b)
+    {
+        CharacterData_A = a;
+        CharacterData_B = b;  
+    }
+    public (CharacterData_SO , CharacterData_SO ) GetCurrentPart()
+    {
+
+        return (CharacterData_A, CharacterData_B);
     }
 
 

@@ -40,6 +40,10 @@ public class CharacterData_SO : ScriptableObject
     [SerializeField] private Sprite spritePreview; // for that middle guy
     //getters
 
+    [Header("Abilites")]
+    [SerializeField] private Abilities_SO ability_1;
+    [SerializeField] private Abilities_SO ability_2;
+    [SerializeField] private Abilities_SO ability_3;
     public string CharacterName => characterName;
     public CharacterRole_Enum CharacterRole => characterRole;
 
@@ -73,6 +77,11 @@ public class CharacterData_SO : ScriptableObject
     public Animator Animator => animator;
     public Sprite RosterSelectPfp => rosterSelectPfp;
     public Sprite SpritePreview => spritePreview;
+
+    // Public Getters (Read-Only)
+    public Abilities_SO Ability_1 => ability_1;
+    public Abilities_SO Ability_2 => ability_2;
+    public Abilities_SO Ability_3 => ability_3;
 
 
 

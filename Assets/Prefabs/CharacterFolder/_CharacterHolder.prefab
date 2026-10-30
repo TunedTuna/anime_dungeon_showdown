@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 2254181423711399684}
   - component: {fileID: 7733816261240220977}
   - component: {fileID: 6735163048857759167}
+  - component: {fileID: 8659936914709462275}
   m_Layer: 0
   m_Name: _CharacterHolder
   m_TagString: Player
@@ -392,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d156537d97bcf4db1783f1b73d21d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chd_SO: {fileID: 0}
   baseDamage: 10
   attackRate: 1
   attackRadius: 2
@@ -457,6 +459,21 @@ MonoBehaviour:
   characterController: {fileID: 0}
   knockBackDUration: 0.2
   currentKnockBacktime: 0.2
+--- !u!114 &8659936914709462275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2821204186206387802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0a3bee91579ee48ae09a5643fb3055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO_1: {fileID: 0}
+  abilitySO_2: {fileID: 0}
+  abilitySO_3: {fileID: 0}
 --- !u!1 &4049869779616687724
 GameObject:
   m_ObjectHideFlags: 0

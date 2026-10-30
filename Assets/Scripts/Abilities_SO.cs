@@ -16,4 +16,22 @@ public class Abilities_SO :ScriptableObject
     [Header("UI stuff")]
     [SerializeField] private Image abilityPfp;
 
+    [Header("Ability logic???")]
+    [SerializeField] private MonoBehaviour testAbiltyTirgger;
+
+    // Public Getters (Read-Only)
+    public float Damage => damage;
+    public float CooldownTime => cooldownTime;
+
+    public bool CanBurn => canBurn;
+    public bool CanStun => canStun;
+    public bool CanBleed => canBleed;
+    public bool CanSlow => canSlow;
+
+    public Image AbilityPfp => abilityPfp;
+
+    public void ActivateAbility()
+    {
+        testAbiltyTirgger.GetComponent<IAbilities>().ActivateAbility();
+    }
 }

@@ -1054,6 +1054,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4596043658245843066, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
+      propertyPath: abilityReady_1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596043658245843066, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
+      propertyPath: abilityReady_2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596043658245843066, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
+      propertyPath: abilityReady_3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390148177214356093, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
+      propertyPath: isNewUIConnectionBeingUsed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6971789532992613155, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
       propertyPath: m_Name
       value: CharacterA
@@ -1573,6 +1589,14 @@ PrefabInstance:
       propertyPath: characterB
       value: 
       objectReference: {fileID: 1405497620}
+    - target: {fileID: 42466778245865381, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
+      propertyPath: CharacterData_A
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 42466778245865381, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
+      propertyPath: CharacterData_B
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7426777700871734444, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2914,6 +2938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6021949578561163203, guid: 13a5bbb741c1c0a45a0ce4a610425178, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6116506706321716279, guid: 13a5bbb741c1c0a45a0ce4a610425178, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3994,6 +4022,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072576822134112338, guid: 86fb2fb70f28ed047b4472d3a78a8ecc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337139966031159865, guid: 86fb2fb70f28ed047b4472d3a78a8ecc, type: 3}
+      propertyPath: isNewUIConnectionBeingUsed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -18,10 +18,16 @@ public class PlayerInputController : MonoBehaviour
     public static PlayerInputController instance {  get; private set; }
     private InputSystem_Actions inputActions;
     InputSystem_Actions.PlayerActions inputActPlayer;
+
+    public delegate void SpecialAttackOne();
+    public delegate void SpecialAttackTwo();
+    public delegate void SpecialAttackThree();
+
+
     public event EventHandler OnBasicAttack;
-    public event EventHandler OnSpecialOne;
-    public event EventHandler OnSpecialTwo;
-    public event EventHandler OnSpecialThree;
+    public static event SpecialAttackOne OnSpecialOne;
+    public static event SpecialAttackTwo OnSpecialTwo;
+    public static event SpecialAttackThree OnSpecialThree;
     public event EventHandler OnInteract;
     public event EventHandler OnCharactersSwapped;
 
@@ -37,6 +43,7 @@ public class PlayerInputController : MonoBehaviour
         inputActions.Player.Enable();
         //combat
         inputActions.Player.Attack.performed += Attack_performed;
+        //combat-specials
         inputActions.Player.SpecialOne.performed += SpecialOne_performed;
         inputActions.Player.SpecialTwo.performed += SpecialTwo_performed;
         inputActions.Player.SpecialThree.performed += SpecialThree_performed;
@@ -64,17 +71,18 @@ public class PlayerInputController : MonoBehaviour
 
     private void SpecialThree_performed(InputAction.CallbackContext obj)
     {
-        OnSpecialThree?.Invoke(this, EventArgs.Empty);
+        OnSpecialThree?.Invoke();
     }
 
     private void SpecialTwo_performed(InputAction.CallbackContext obj)
     {
-        OnSpecialTwo?.Invoke(this, EventArgs.Empty);
+        OnSpecialTwo?.Invoke();
     }
 
     private void SpecialOne_performed(InputAction.CallbackContext obj)
     {
-        OnSpecialOne?.Invoke(this, EventArgs.Empty);
+        OnSpecialOne?.Invoke();
+        
     }
 
     private void OnDisable()

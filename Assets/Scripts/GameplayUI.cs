@@ -8,23 +8,30 @@ public class GameplayUI : MonoBehaviour
     public AbilityUI ability3;
     public AbilityUI ability4;
 
-    [Header("Ability data references")]
-    [SerializeField] private Abilities_SO abilitySO_1;
-    [SerializeField] private Abilities_SO abilitySO_2;
-    [SerializeField] private Abilities_SO abilitySO_3;
+
+    //UI should listen to an event
+    //current set up has the abilites fixed positions...
     private void Awake()
     {
         Instance = this;
     }
+    private void OnEnable()
+    {
+        SubscribeToAbilitiesPage();
+        AbilityManager.OnCharacterSwapAbilityUI += AbilityManager_OnCharacterSwapAbilityUI;
+    }
+
+    private void AbilityManager_OnCharacterSwapAbilityUI(float maxCool_1, float maxCool_2, float maxCool_3, float current1, float current2, float current3)
+    {
+        ability1.SetUpSwappedCharacterAbiltyRemainingTIme(current1, maxCool_1);
+        ability2.SetUpSwappedCharacterAbiltyRemainingTIme(current2, maxCool_2);
+        ability3.SetUpSwappedCharacterAbiltyRemainingTIme(current3 , maxCool_3);
+    }
+
     void Update()
     {
     //todo: remove this update and replace with an event system. one for on use and another for cooldown ready to play their respective sounds
-        if (Input.GetKeyDown(KeyCode.Q) && ability1.IsReady())
-            ability1.UseAbility();
-        if (Input.GetKeyDown(KeyCode.R) && ability2.IsReady())
-            ability2.UseAbility();
-        if (Input.GetKeyDown(KeyCode.T) && ability3.IsReady())
-            ability3.UseAbility();
+     
     }
 
     public void HideUI()
@@ -34,5 +41,41 @@ public class GameplayUI : MonoBehaviour
     public void ShowUI()
     {
         gameObject.SetActive(true);
+    }
+
+    private void SubscribeToAbilitiesPage()
+    {
+        AbilityManager.OnAbilityHasBeenUsed_1 += AbilityManager_OnAbilityHasBeenUsed_1;
+        AbilityManager.OnAbilityHasBeenUsed_2 += AbilityManager_OnAbilityHasBeenUsed_2;
+        AbilityManager.OnAbilityHasBeenUsed_3 += AbilityManager_OnAbilityHasBeenUsed_3;
+    }
+
+    private void UnsubscribeToAbilitiesPage()
+    {
+        AbilityManager.OnAbilityHasBeenUsed_1 -= AbilityManager_OnAbilityHasBeenUsed_1;
+        AbilityManager.OnAbilityHasBeenUsed_2 -= AbilityManager_OnAbilityHasBeenUsed_2;
+        AbilityManager.OnAbilityHasBeenUsed_3 -= AbilityManager_OnAbilityHasBeenUsed_3;
+    }
+
+    private void AbilityManager_OnAbilityHasBeenUsed_3(float maxCooldown)
+    {
+        ability3.StartAbiltyClockUI(maxCooldown);
+    }
+
+    private void AbilityManager_OnAbilityHasBeenUsed_2(float maxCooldown)
+    {
+        ability2.StartAbiltyClockUI(maxCooldown);
+    }
+
+    private void AbilityManager_OnAbilityHasBeenUsed_1(float maxCooldown)
+    {
+        ability1.StartAbiltyClockUI(maxCooldown);
+    }
+
+  
+    private void OnDisable()
+    {
+        UnsubscribeToAbilitiesPage();
+        AbilityManager.OnCharacterSwapAbilityUI -= AbilityManager_OnCharacterSwapAbilityUI;
     }
 }

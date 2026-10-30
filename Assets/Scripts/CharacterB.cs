@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterB : MonoBehaviour, IAbilities,ICharacterValues
+public class CharacterB : MonoBehaviour,ICharacterValues
 {
     //todo, remove all instants of inputs and move to a centralized location since these inputs will be shared amonst characters
+    [SerializeField] private CharacterData_SO chd_SO;
+
     [Header("Base Attack")]
     public float baseDamage = 50f;
     public float attackRate = 1f;
@@ -183,6 +185,7 @@ public class CharacterB : MonoBehaviour, IAbilities,ICharacterValues
 
     void OnEnable()
     {
+
         canUseUlt = true;
         canUseStun = true;
         canUseNeedler = true;
@@ -206,21 +209,17 @@ public class CharacterB : MonoBehaviour, IAbilities,ICharacterValues
         Gizmos.matrix = oldMatrix;
     }
 
-    public string GetCharacterName()
+    //iCharaterValue contract
+    public string GetCharacterName() { return characterName; }
+    public Abilities_SO GetAbility_1() { return chd_SO.Ability_1; }
+    public Abilities_SO GetAbility_2() { return chd_SO.Ability_2; }
+    public Abilities_SO GetAbility_3() { return chd_SO.Ability_3; }
+    public void CharacterSelectionDataChange()
     {
-        return characterName;
-    }
-    public void BasicAttack_Oof() 
-    {
-        //HandleBaseAttack();
-    }
-    public void Special_One() 
-    {
-    }
-    public void Special_Two()
-    {  
-    }
-    public void Special_Three() 
-    {  
+        if (CharacterSwap.instance.GetSlotData_B() != null)
+        {
+            chd_SO = CharacterSwap.instance.GetSlotData_B();
+            characterName = chd_SO.CharacterName;
+        }
     }
 }

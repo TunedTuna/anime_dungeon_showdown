@@ -2,6 +2,8 @@ using UnityEngine;
 //todo change all abilities into Interfaces
 public class CharacterA : MonoBehaviour, ICharacterValues
 {
+    [SerializeField] private CharacterData_SO chd_SO;
+
     [Header("Base Attack (Hold Mouse)")]
     public float baseDamage = 50f;
     public float attackRate = 1f;
@@ -9,13 +11,13 @@ public class CharacterA : MonoBehaviour, ICharacterValues
     public Transform attackPoint;
     public GameObject slashEffect;
 
-    [SerializeField] private float knockBackStrength= 15f; //should have a base lvl determined by character. then adjust by item
+    [SerializeField] private float knockBackStrength = 15f; //should have a base lvl determined by character. then adjust by item
 
     public string characterName = "Ruby";
 
     private float attackTimer;
-    
-    
+
+
     void Update()
     {
         HandleBaseAttack();
@@ -25,7 +27,7 @@ public class CharacterA : MonoBehaviour, ICharacterValues
     {
         if (Input.GetMouseButton(0))
         {
-            
+
             attackTimer += Time.deltaTime;
 
             if (attackTimer >= attackRate)
@@ -64,10 +66,23 @@ public class CharacterA : MonoBehaviour, ICharacterValues
             }
         }
     }
-    public string GetCharacterName()
+    
+    //iCharaterValue contract
+    public string GetCharacterName() { return characterName; }
+    public Abilities_SO GetAbility_1() { return chd_SO.Ability_1; }
+    public Abilities_SO GetAbility_2() { return chd_SO.Ability_2; }
+    public Abilities_SO GetAbility_3() { return chd_SO.Ability_3; }
+    public void CharacterSelectionDataChange()
     {
-        return characterName;
+        if (CharacterSwap.instance.GetSlotData_A() != null)
+        {
+            chd_SO = CharacterSwap.instance.GetSlotData_A();
+            characterName = chd_SO.CharacterName;
+
+        }
     }
+
+
 
     void OnDrawGizmosSelected()
     {

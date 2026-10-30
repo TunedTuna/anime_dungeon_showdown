@@ -8,7 +8,7 @@ public class AbilityUI : MonoBehaviour
     public float cooldownTime = 5f;
 
     private float cooldownTimer = 0f;
-    private bool isCoolingDown = false;
+    [SerializeField] private Abilities_SO abl_SO;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class AbilityUI : MonoBehaviour
 
     void Update()
     {
-        if (!isCoolingDown) return;
+      
 
         cooldownTimer -= Time.deltaTime;
 
@@ -26,23 +26,31 @@ public class AbilityUI : MonoBehaviour
 
         if (cooldownTimer <= 0f)
         {
-            isCoolingDown = false;
+      
             cooldownFill.fillAmount = 1f; // back to FULL (ready)
         }
     }
 
-    public void UseAbility()
+    public void StartAbiltyClockUI(float maxCOoldown)
     {
-        if (isCoolingDown) return;
 
-        isCoolingDown = true;
+
+        cooldownTime=maxCOoldown;
         cooldownTimer = cooldownTime;
 
         cooldownFill.fillAmount = 0f; // instantly empty when used
     }
-
-    public bool IsReady()
+    public void SetUpSwappedCharacterAbiltyRemainingTIme(float remainingTIme, float maxCoolDOwn)
     {
-        return !isCoolingDown;
+        if (remainingTIme >= maxCoolDOwn)
+            return;
+        cooldownTime = maxCoolDOwn;
+        cooldownTimer = remainingTIme;
     }
+
+
+
+
+
+
 }

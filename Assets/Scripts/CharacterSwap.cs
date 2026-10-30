@@ -115,6 +115,8 @@ public class CharacterSwap : MonoBehaviour
         activeCharacter = nextCharacter;
         activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
 
+        activeCharacter.GetComponent<AbilityManager>().AbilitySwapUI();
+
         if (camFollow != null)
             camFollow.SetTarget(activeCharacter.transform);
 
@@ -155,13 +157,33 @@ public class CharacterSwap : MonoBehaviour
 
     public void RefreshCharacterData(CharacterData_SO a, CharacterData_SO b)
     {
+        //called After change from CHaracter Selection
         CharacterData_A = a;
-        CharacterData_B = b;  
+        CharacterData_B = b;
+        //hmm
+        characterA.GetComponent<ICharacterValues>().CharacterSelectionDataChange();
+        characterB.GetComponent<ICharacterValues>().CharacterSelectionDataChange();
+        //ahh
+        characterA.GetComponent<AbilityManager>().SetUpSO();
+        characterB.GetComponent<AbilityManager>().SetUpSO();
+        //oof
+        activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
     }
     public (CharacterData_SO , CharacterData_SO ) GetCurrentPart()
     {
 
         return (CharacterData_A, CharacterData_B);
+    }
+
+    //---WARNING--- this locks A and B into those slots, for testing---WARNING----
+    //(characerA script =melee, character B script= ranged)
+    public CharacterData_SO GetSlotData_A()
+    {
+        return CharacterData_A;
+    }
+    public CharacterData_SO GetSlotData_B()
+    {
+        return CharacterData_B;
     }
 
 

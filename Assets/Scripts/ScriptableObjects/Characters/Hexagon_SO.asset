@@ -33,3 +33,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   rosterSelectPfp: {fileID: 21300000, guid: ac08251e6337f524f83dd73f42b3a619, type: 3}
   spritePreview: {fileID: -2135585597343286014, guid: eed45a33cd08446c8b88325cf82fc52f, type: 3}
+  ability_1: {fileID: 11400000, guid: a6ac2e3cfe921e54baa934b66c6e1206, type: 2}
+  ability_2: {fileID: 11400000, guid: 68f8704781dfa294389b2989f65f5a87, type: 2}
+  ability_3: {fileID: 11400000, guid: 7f99a470f725de14394548b6e31fbfc5, type: 2}

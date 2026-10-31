@@ -43,20 +43,27 @@ public class CharacterB : MonoBehaviour,ICharacterValues
     public float needleCooldown = 5f;
     private bool canUseNeedler = true;
 
-    public string characterName = "Guy Feiri";
+    public string characterName = "Kilku";
+
+    [Header("Misc")]
+    [SerializeField] private bool isUsingBaseTest=false;
 
     void Update()
     {
         HandleBaseAttack();
+        if (!isUsingBaseTest)
+        {
+            if (Input.GetKeyDown(ultKey) && canUseUlt)
+                StartCoroutine(UseKamehameha());
 
-        if (Input.GetKeyDown(ultKey) && canUseUlt)
-            StartCoroutine(UseKamehameha());
+            if (Input.GetKeyDown(stunKey) && canUseStun)
+                StartCoroutine(UseStun());
 
-        if (Input.GetKeyDown(stunKey) && canUseStun)
-            StartCoroutine(UseStun());
+            if (Input.GetKeyDown(needleKey) && canUseNeedler)
+                StartCoroutine(UseNeedler());
+        }
 
-        if (Input.GetKeyDown(needleKey) && canUseNeedler)
-            StartCoroutine(UseNeedler());
+
     }
     //move timers into update?
 
@@ -132,7 +139,7 @@ public class CharacterB : MonoBehaviour,ICharacterValues
 
         foreach (Collider hit in hits)
         {
-            EnemyAI enemy = hit.GetComponent<EnemyAI>();
+            IDamageable enemy = hit.GetComponent<IDamageable>();
 
             if (enemy != null)
             {

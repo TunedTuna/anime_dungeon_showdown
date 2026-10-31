@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class KamehameBeam_Logic : IAbilities
+public class KamehameBeam_Logic : MonoBehaviour, IAbilities
 {
     [Header("Kamehameha Beam")]
     public float beamDuration = 5f;
@@ -21,7 +21,7 @@ public class KamehameBeam_Logic : IAbilities
     IEnumerator UseKamehameha()
     {
         canUseUlt = false;
-        Debug.Log("Beam activated");
+        //Debug.Log("Beam activated from Ability SO!");
 
         if (beamEffect != null)
             beamEffect.SetActive(true);
@@ -43,6 +43,7 @@ public class KamehameBeam_Logic : IAbilities
 
     void BeamDamageBox()
     {
+        //Debug.Log("Box is checking!");
         Vector3 center = beamSpawn.position + beamSpawn.forward * (beamRange / 2f);
 
         Vector3 halfExtents = new Vector3(
@@ -59,16 +60,31 @@ public class KamehameBeam_Logic : IAbilities
 
         foreach (Collider hit in hits)
         {
-            EnemyAI enemy = hit.GetComponent<EnemyAI>();
-
+            IDamageable enemy = hit.GetComponent<IDamageable>();
+            //Debug.Log("Box is checking, in da hit!");
             if (enemy != null)
             {
+                //Debug.Log($"inside the Kamehame wave!: {hit.gameObject.name}");
                 enemy.TakeDamage(beamDamage * Time.deltaTime);
             }
         }
     }
+        void OnDrawGizmosSelected()
+    {
+        if (beamSpawn == null) return;
+
+        Gizmos.color = Color.cyan;
+
+        Vector3 center = beamSpawn.position + beamSpawn.forward * (beamRange / 2f);
+        Vector3 size = new Vector3(beamWidth, beamHeight, beamRange);
+
+        Matrix4x4 oldMatrix = Gizmos.matrix;
+        Gizmos.matrix = Matrix4x4.TRS(center, beamSpawn.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, size);
+        Gizmos.matrix = oldMatrix;
+    }
     public void ActivateAbility()
     {
-        
+        StartCoroutine(UseKamehameha());
     }
 }

@@ -17,7 +17,7 @@ public class Abilities_SO :ScriptableObject
     [SerializeField] private Image abilityPfp;
 
     [Header("Ability logic???")]
-    [SerializeField] private MonoBehaviour testAbiltyTirgger;
+    [SerializeField] private GameObject testAbiltyTirgger;
 
     // Public Getters (Read-Only)
     public float Damage => damage;
@@ -30,6 +30,7 @@ public class Abilities_SO :ScriptableObject
 
     public Image AbilityPfp => abilityPfp;
 
+    public GameObject TestAbiltyTrigger => testAbiltyTirgger;
     public void ActivateAbility()
     {
         testAbiltyTirgger.GetComponent<IAbilities>().ActivateAbility();

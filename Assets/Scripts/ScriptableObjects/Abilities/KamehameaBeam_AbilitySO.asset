@@ -19,4 +19,4 @@ MonoBehaviour:
   canBleed: 0
   canSlow: 0
   abilityPfp: {fileID: 0}
-  testAbiltyTirgger: {fileID: 0}
+  testAbiltyTirgger: {fileID: 1458408505048227952, guid: 15c58e361af643546b73a18c4c1a44b4, type: 3}

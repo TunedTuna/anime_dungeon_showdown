@@ -474,6 +474,13 @@ MonoBehaviour:
   abilitySO_1: {fileID: 0}
   abilitySO_2: {fileID: 0}
   abilitySO_3: {fileID: 0}
+  abilityReady_1: 1
+  abilityReady_2: 1
+  abilityReady_3: 1
+  currentTimeAbl_1: 0
+  currentTimeAbl_2: 0
+  currentTimeAbl_3: 0
+  aimDirectionParent: {fileID: 7294591538526951914}
 --- !u!1 &4049869779616687724
 GameObject:
   m_ObjectHideFlags: 0

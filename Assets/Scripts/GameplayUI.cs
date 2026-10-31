@@ -28,11 +28,7 @@ public class GameplayUI : MonoBehaviour
         ability3.SetUpSwappedCharacterAbiltyRemainingTIme(current3 , maxCool_3);
     }
 
-    void Update()
-    {
-    //todo: remove this update and replace with an event system. one for on use and another for cooldown ready to play their respective sounds
-     
-    }
+
 
     public void HideUI()
     {

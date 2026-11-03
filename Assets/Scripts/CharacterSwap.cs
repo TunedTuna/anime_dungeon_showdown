@@ -1,3 +1,4 @@
+using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 /// <summary>
@@ -7,16 +8,22 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CharacterSwap : MonoBehaviour
 {
-    public static CharacterSwap instance {  get; private set; }//prob regret this
+    public static CharacterSwap instance { get; private set; }//prob regret this
     [Header("Characters")]
     public GameObject characterA;
     public string characterNameA;
     public GameObject characterB;
     public string characterNameB;
 
+    //dead character refernce
+    [Header("DeathReference")]
+    [SerializeField] private bool isTeammateDead = false;
+    [SerializeField] private GameObject deadTeammate_GameObject;
+
     [Header("Temp Character Data")]
     [SerializeField] private CharacterData_SO CharacterData_A;
     [SerializeField] protected CharacterData_SO CharacterData_B;
+
 
     [Header("Settings")]
     //public KeyCode swapKey = KeyCode.F;
@@ -29,7 +36,7 @@ public class CharacterSwap : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        
+
     }
     void Start()
     {
@@ -37,11 +44,7 @@ public class CharacterSwap : MonoBehaviour
         {
 
             PlayerInputController.instance.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
-            //---input for specials not implemented yet---
-            //PlayerInputController.instance.OnBasicAttack += PlayerInputController_OnBasicAttack;
-            //PlayerInputController.instance.OnSpecialOne += PlayerInputController_OnSpecialOne;
-            //PlayerInputController.instance.OnSpecialTwo += PlayerInputController_OnSpecialTwo;
-            //PlayerInputController.instance.OnSpecialThree += PlayerInputController_OnSpecialThree;
+            PlayerHealth.OnCharacterHasDied += PlayerHealth_OnCharacterHasDied;
         }
         else
         {
@@ -68,6 +71,7 @@ public class CharacterSwap : MonoBehaviour
         }
     }
 
+
     private void PlayerInputController_OnSpecialThree(object sender, System.EventArgs e)
     {
         throw new System.NotImplementedException();
@@ -90,7 +94,11 @@ public class CharacterSwap : MonoBehaviour
 
     private void PlayerInputController_OnCharactersSwapped(object sender, System.EventArgs e)
     {
-        SwapCharacter();
+        if (!isTeammateDead)
+        {
+
+            SwapCharacter();
+        }
     }
 
 
@@ -147,12 +155,12 @@ public class CharacterSwap : MonoBehaviour
     public void DisablePlayerMovement()
     {
         activeCharacter.GetComponent<PlayerMovement>().enabled = false;
-        
+
     }
     public void EnablePlayerMovement()
     {
         activeCharacter.GetComponent<PlayerMovement>().enabled = true;
-        
+
     }
 
     public void RefreshCharacterData(CharacterData_SO a, CharacterData_SO b)
@@ -169,14 +177,36 @@ public class CharacterSwap : MonoBehaviour
         //oof
         activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
     }
-    public (CharacterData_SO , CharacterData_SO ) GetCurrentPart()
+    public (CharacterData_SO, CharacterData_SO) GetCurrentPart()
     {
 
         return (CharacterData_A, CharacterData_B);
     }
+    //Death
+    private void PlayerHealth_OnCharacterHasDied(GameObject character)
+    {
+        //if teammate is not dead, now they are. if a teammate is already dead and this is heard, "GAME OVER MAN"
+        if (!isTeammateDead)
+        {
+            SwapCharacter(); //call this before the bool check so we can still use it
+            isTeammateDead = true;
+            deadTeammate_GameObject = character;
+
+        }
+        else
+        {
+
+            //fire an event that the Game is Over
+            //switch to UI input/ disable player input
+            //pull up GameOver screen
+            //just have the player confirm to go back to MainMenu (display some stats ? they could look at?)
+
+        }
+    }
+
 
     //---WARNING--- this locks A and B into those slots, for testing---WARNING----
-    //(characerA script =melee, character B script= ranged)
+    //(characerA script =melee, character B script= ranged, each script calls respective Getter)
     public CharacterData_SO GetSlotData_A()
     {
         return CharacterData_A;

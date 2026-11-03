@@ -31,8 +31,8 @@ public class Abilities_SO :ScriptableObject
     public Image AbilityPfp => abilityPfp;
 
     public GameObject TestAbiltyTrigger => testAbiltyTirgger;
-    public void ActivateAbility()
-    {
-        testAbiltyTirgger.GetComponent<IAbilities>().ActivateAbility();
-    }
+    //public void ActivateAbility()
+    //{
+    //    testAbiltyTirgger.GetComponent<IAbilities>().ActivateAbility();
+    //}
 }

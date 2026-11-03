@@ -10,6 +10,9 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 
     [SerializeField] private KnockBackHandler knockBackHandler;
 
+    public delegate void CharacterHasDied(GameObject character);
+    public static event CharacterHasDied OnCharacterHasDied;
+
     private PlayerMovement PlayerMovement;
     private void Awake()
     {
@@ -52,6 +55,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     void Die()
     {
         Debug.Log(gameObject.name + " died");
+        OnCharacterHasDied?.Invoke(gameObject);//send the object this script lives on
         gameObject.SetActive(false);
     }
 }

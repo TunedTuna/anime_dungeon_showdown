@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
     public float chaseRange = 30f;
     [Header("KnockbackRef")]
     [SerializeField] private KnockBackHandler knockBackHandler;
+    [SerializeField] private float knockbackOutput = 10f;
 
     [Header("Attack")]
     public float attackRange = 2f;
@@ -84,7 +85,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
         {
             
             playerHealth.TakeDamage(attackDamage);
-            playerHealth.TakeKnockBack(transform.forward, attackDamage);
+            playerHealth.TakeKnockBack(transform.forward, knockbackOutput);
         }
 
         yield return new WaitForSeconds(attackCooldown);

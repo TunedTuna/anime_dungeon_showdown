@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameplayUI : MonoBehaviour
+public class GameplayUI : MonoBehaviour,IUserInterface
 {
     public static GameplayUI Instance { get; private set; }
     public AbilityUI ability1;
@@ -19,6 +19,24 @@ public class GameplayUI : MonoBehaviour
     {
         SubscribeToAbilitiesPage();
         AbilityManager.OnCharacterSwapAbilityUI += AbilityManager_OnCharacterSwapAbilityUI;
+        GlobalEventManager.OnGoingToInput_Player += GlobalEventManager_OnGoingToInput_Player;
+        GlobalEventManager.OnGoingToInput_UI += GlobalEventManager_OnGoingToInput_UI;
+        GlobalEventManager.OnGameOver += GlobalEventManager_OnGameOver;
+    }
+
+    private void GlobalEventManager_OnGameOver()
+    {
+       HideUI();
+    }
+
+    private void GlobalEventManager_OnGoingToInput_UI()
+    {
+        HideUI(); //child can hide itself, but not show, hence parent relation ship
+    }
+
+    private void GlobalEventManager_OnGoingToInput_Player()
+    {
+        
     }
 
     private void AbilityManager_OnCharacterSwapAbilityUI(float maxCool_1, float maxCool_2, float maxCool_3, float current1, float current2, float current3)
@@ -30,7 +48,7 @@ public class GameplayUI : MonoBehaviour
 
 
 
-    public void HideUI()
+    public void HideUI()//now part of contract
     {
         gameObject.SetActive(false);
     }
@@ -73,5 +91,8 @@ public class GameplayUI : MonoBehaviour
     {
         UnsubscribeToAbilitiesPage();
         AbilityManager.OnCharacterSwapAbilityUI -= AbilityManager_OnCharacterSwapAbilityUI;
+        GlobalEventManager.OnGoingToInput_Player -= GlobalEventManager_OnGoingToInput_Player;
+        GlobalEventManager.OnGoingToInput_UI -= GlobalEventManager_OnGoingToInput_UI;
+        GlobalEventManager.OnGameOver -= GlobalEventManager_OnGameOver;
     }
 }

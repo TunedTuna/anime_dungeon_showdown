@@ -13,14 +13,20 @@ public class InputSwapHandler : MonoBehaviour
     {
         userInterfaceInput.enabled = true;
         playerInput.enabled = false;
-        CharacterSwap.instance.DisablePlayerMovement();
+       
         GameplayUI.Instance.HideUI();
+
+        //--invoke ya boy GlobalEventManager---
+        GlobalEventManager.Fire_GoingToInput_UI();
     }
     public void EnablePlayerController()
     {
         playerInput.enabled = true;
         userInterfaceInput.enabled = false;
-        CharacterSwap.instance.EnablePlayerMovement();
+        
         GameplayUI.Instance.ShowUI();
+
+        //---invoke ya boy GlobalEventManager---
+        GlobalEventManager.Fire_GoingToInput_Player();
     }
 }

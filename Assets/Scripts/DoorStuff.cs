@@ -10,11 +10,23 @@ public class DoorStuff : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
+        PlayerInputController.OnInteract += PlayerInputController_OnInteract;
         NotificationPanelUI temp = ParentUI.Instance.PassRefDataNotificationUI();
         notifcationPanel = temp.GetPanelGameObject();
         panelText = temp.GetTextMeshProUGUIObject();
     }
+
+    private void PlayerInputController_OnInteract()
+    {
+        if (playerInRange)
+        {
+            HideText();
+            playerInRange = false;
+            UseTheDoor();
+
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -40,17 +52,7 @@ public class DoorStuff : MonoBehaviour
         notifcationPanel.SetActive(false);
     }
 
-    private void PlayerInputController_OnInteract(object sender, System.EventArgs e)
-    {
 
-        if (playerInRange)
-        {
-            HideText();
-            playerInRange = false;
-            UseTheDoor();
-
-        }
-    }
 
     private void UseTheDoor()
     {
@@ -60,7 +62,7 @@ public class DoorStuff : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
+        PlayerInputController.OnInteract -= PlayerInputController_OnInteract;
     }
 
 }

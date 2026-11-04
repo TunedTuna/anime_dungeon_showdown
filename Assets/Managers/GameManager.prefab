@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5179802280592272791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677673520290351173}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &677673520290351173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179802280592272791}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7488089211112584782}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7426777700871734444
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +43,7 @@ GameObject:
   - component: {fileID: 62277439168327030}
   - component: {fileID: 3207897851170077377}
   - component: {fileID: 1076871580319379129}
+  - component: {fileID: 2014067367923400430}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -34,6 +66,7 @@ Transform:
   m_Children:
   - {fileID: 140291800461164794}
   - {fileID: 2994408234553389267}
+  - {fileID: 677673520290351173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &62277439168327030
@@ -74,6 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd49ce3d92803f43ada37f04dc9d4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2014067367923400430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426777700871734444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3aaa998589011447ad70e0df5bc0598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerThingy: {fileID: 8781523544463086284}
 --- !u!1001 &3747859871540751781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,5 +242,10 @@ PrefabInstance:
 --- !u!4 &140291800461164794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8862339699199865212, guid: 2d310af3aba835e41b357b68c1f27a7c, type: 3}
+  m_PrefabInstance: {fileID: 8867360781470347654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8781523544463086284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 202957225134039882, guid: 2d310af3aba835e41b357b68c1f27a7c, type: 3}
   m_PrefabInstance: {fileID: 8867360781470347654}
   m_PrefabAsset: {fileID: 0}

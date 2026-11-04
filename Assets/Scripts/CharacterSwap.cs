@@ -1,6 +1,8 @@
+using Unity.VisualScripting;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 /// <summary>
 /// holds the logic for swapping between two characters
 /// -because it has reference to both characters, use it to simplify inputs?
@@ -38,20 +40,35 @@ public class CharacterSwap : MonoBehaviour
         instance = this;
 
     }
+    private void OnEnable()
+    {
+        PlayerInputController.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
+        GlobalEventManager.OnCharacterHasDied += GlobalEventManager_OnCharacterHasDied;
+        Debug.Log("Cheese");
+
+        if (activeCharacter != null)
+        {
+            EnablePlayerMovement();
+
+        }
+    }
+
+
+
+    private void PlayerInputController_OnCharactersSwapped()
+    {
+        if (!isTeammateDead)
+        {
+
+            SwapCharacter();
+        }
+    }
+
     void Start()
     {
-        if (PlayerInputController.instance != null)
-        {
 
-            PlayerInputController.instance.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
-            PlayerHealth.OnCharacterHasDied += PlayerHealth_OnCharacterHasDied;
-        }
-        else
-        {
-            Debug.LogWarning("ey, the player input script is probably missing!");
-        }
         activeCharacter = startWithCharacterA ? characterA : characterB;
-
+        EnablePlayerMovement();
         if (characterA != null && characterB != null)
         {
             characterA.SetActive(startWithCharacterA);
@@ -70,37 +87,6 @@ public class CharacterSwap : MonoBehaviour
             camFollow.SetTarget(activeCharacter.transform);
         }
     }
-
-
-    private void PlayerInputController_OnSpecialThree(object sender, System.EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void PlayerInputController_OnSpecialTwo(object sender, System.EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void PlayerInputController_OnSpecialOne(object sender, System.EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void PlayerInputController_OnBasicAttack(object sender, System.EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void PlayerInputController_OnCharactersSwapped(object sender, System.EventArgs e)
-    {
-        if (!isTeammateDead)
-        {
-
-            SwapCharacter();
-        }
-    }
-
 
 
     void SwapCharacter()
@@ -134,31 +120,26 @@ public class CharacterSwap : MonoBehaviour
 
     private void OnDisable()
     {
-        {
-            if (PlayerInputController.instance != null)
-            {
-                //don't forget to dislike and unsubscribe!
-                PlayerInputController.instance.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
-                //PlayerInputController.instance.OnBasicAttack -= PlayerInputController_OnBasicAttack;
-                //PlayerInputController.instance.OnSpecialOne -= PlayerInputController_OnSpecialOne;
-                //PlayerInputController.instance.OnSpecialTwo -= PlayerInputController_OnSpecialTwo;
-                //PlayerInputController.instance.OnSpecialThree += PlayerInputController_OnSpecialThree;
-            }
-            else
-            {
-                Debug.LogWarning("Ey! the player input script is probably missing!");
-            }
-        }
+
+
+        //don't forget to dislike and unsubscribe!
+        PlayerInputController.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
+        GlobalEventManager.OnCharacterHasDied -= GlobalEventManager_OnCharacterHasDied;
+        DisablePlayerMovement();
+
+
 
     }
 
     public void DisablePlayerMovement()
     {
+        if (activeCharacter == null) return;
         activeCharacter.GetComponent<PlayerMovement>().enabled = false;
 
     }
     public void EnablePlayerMovement()
     {
+        if (activeCharacter == null) return;
         activeCharacter.GetComponent<PlayerMovement>().enabled = true;
 
     }
@@ -183,14 +164,15 @@ public class CharacterSwap : MonoBehaviour
         return (CharacterData_A, CharacterData_B);
     }
     //Death
-    private void PlayerHealth_OnCharacterHasDied(GameObject character)
+    private void GlobalEventManager_OnCharacterHasDied(GameObject obj)
     {
         //if teammate is not dead, now they are. if a teammate is already dead and this is heard, "GAME OVER MAN"
         if (!isTeammateDead)
         {
+            Debug.Log("A teammate has died");
             SwapCharacter(); //call this before the bool check so we can still use it
             isTeammateDead = true;
-            deadTeammate_GameObject = character;
+            deadTeammate_GameObject = obj;
 
         }
         else
@@ -200,9 +182,12 @@ public class CharacterSwap : MonoBehaviour
             //switch to UI input/ disable player input
             //pull up GameOver screen
             //just have the player confirm to go back to MainMenu (display some stats ? they could look at?)
+            GlobalEventManager.Fire_GameOver();
+
 
         }
     }
+    //listen to event for GOing toUI
 
 
     //---WARNING--- this locks A and B into those slots, for testing---WARNING----

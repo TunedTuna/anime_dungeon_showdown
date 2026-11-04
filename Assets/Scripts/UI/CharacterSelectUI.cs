@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterSelectUI : MonoBehaviour
+public class CharacterSelectUI : MonoBehaviour, IUserInterface
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("LeftPart")]
@@ -78,7 +78,7 @@ public class CharacterSelectUI : MonoBehaviour
     private void UserInterfaceCOntroller_OnSubmit(object sender, System.EventArgs e)
     {
         CharacterSwap.instance.RefreshCharacterData(tempSlotB_SO, tempSlotA_SO);
-        InputSwapHandler.Instance.EnablePlayerController();
+        GlobalEventManager.Fire_GoingToInput_Player();
         HideUI();
     }
 

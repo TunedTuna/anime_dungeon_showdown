@@ -12,23 +12,27 @@ public class CharacterSelectHandler : MonoBehaviour
     //
     void Start()
     {
-        PlayerInputController.instance.OnInteract += PlayerControllerInput_OnInteract;
+        PlayerInputController.OnInteract += PlayerInputController_OnInteract;
 
         temp = ParentUI.Instance.PassRefDataNotificationUI();
         notifcationPanel = temp.GetPanelGameObject();
         panelText = temp.GetTextMeshProUGUIObject();
     }
 
-    private void PlayerControllerInput_OnInteract(object sender, System.EventArgs e)
+    private void PlayerInputController_OnInteract()
     {
         if (playerInRange)
         {
             //CharacterSelectUI.Instance.ShowUI();
             //todo replace w/ parent handler
             ParentUI.Instance.ActivateCharacterSelectUI();
-            InputSwapHandler.Instance.EnableUserInterfaceInput();
+
+            GlobalEventManager.Fire_GoingToInput_UI();
+
         }
     }
+
+ 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,7 +54,7 @@ public class CharacterSelectHandler : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerInputController.instance.OnInteract -= PlayerControllerInput_OnInteract;
+        PlayerInputController.OnInteract -= PlayerInputController_OnInteract;
     }
 
 

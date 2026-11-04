@@ -54,7 +54,7 @@ public class KnockBackHandler : MonoBehaviour
             if (isPlayer)
             {
                 characterController.enabled = true;
-                Debug.Log( $"retruning controller objectL, status: {characterController.enabled}");
+                //Debug.Log( $"retruning controller objectL, status: {characterController.enabled}");
                 return;
             }
             

@@ -13,19 +13,21 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject chestLid;//rotate to -61
     private void Start()
     {
-        PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
+        PlayerInputController.OnInteract += PlayerInputController_OnInteract;
         NotificationPanelUI temp = ParentUI.Instance.PassRefDataNotificationUI();
         pressChestText = temp.GetPanelGameObject();
         panelText = temp.GetTextMeshProUGUIObject();
     }
 
-    private void PlayerInputController_OnInteract(object sender, EventArgs e)
+    private void PlayerInputController_OnInteract()
     {
         if (playerInRange && !hasBeenOpened)
         {
             OpenChest();
         }
     }
+
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -76,6 +78,6 @@ public class Chest : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerInputController.instance.OnInteract += PlayerInputController_OnInteract;
+        PlayerInputController.OnInteract -= PlayerInputController_OnInteract;
     }
 }

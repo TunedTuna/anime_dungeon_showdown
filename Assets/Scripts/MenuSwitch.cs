@@ -4,10 +4,16 @@ using UnityEngine.SceneManagement;
 public class MenuSwitch : MonoBehaviour {
     
     public GameObject OptionsHolder;
+    [SerializeField] private SceneSelectorEnum targetScene;
 
+    private void Awake()
+    {
+        Debug.Log(targetScene.ToString());
+    }
     public void OnButtonClick()
     {
-        SceneManager.LoadScene(sceneName:"LobbyFloor");
+        
+        SceneManager.LoadScene((int)targetScene);
         //This will be different in the final game
     }
 

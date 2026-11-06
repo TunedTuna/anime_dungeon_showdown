@@ -1,8 +1,24 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class DoorStuff : MonoBehaviour
 {
+    //door stuff
+    [SerializeField] private DoorOpenMethod dom;
+    [SerializeField] private GameObject theDoor;
+    [SerializeField] private List<(GameObject switchData, bool isActive)> switchList; // hold a list of scriptable objects
+    [SerializeField] private bool isOpened = false;
+    [SerializeField] private bool isLocked = false;
+    [SerializeField] private GameObject key; //idk what data type yet
+
+    //patternLock
+    [Header("Patterns for Switches")]
+    [SerializeField] private List<GameObject> patternAnswerCombo;
+    [SerializeField] private List<GameObject> currentPatternCombo;
+
+    //interact stuff
+    [Header("InteractStuff")]
     private bool playerInRange = false;
     public GameObject notifcationPanel;
     [SerializeField] private TextMeshProUGUI panelText;
@@ -58,11 +74,73 @@ public class DoorStuff : MonoBehaviour
     {
         //just destroy for simplicity. animate later
 
-        Destroy(transform.parent.gameObject);
+        //Destroy(transform.parent.gameObject);
+        if (!isOpened)
+        {
+            isOpened = true;
+            PrototypeOpenAnimation();
+        }
+    }
+    public void ForceTheDoorOpen()
+    {
+        PrototypeOpenAnimation();
     }
     private void OnDisable()
     {
         PlayerInputController.OnInteract -= PlayerInputController_OnInteract;
     }
 
+    public void PrototypeOpenAnimation()
+    {
+        Transform temp = theDoor.transform;
+        float temp_X = temp.position.x;
+        float temp_Y = temp.position.y;
+        float temp_Z = temp.position.z;
+        switch (dom)
+        {
+            case DoorOpenMethod.Swing:
+                //
+                break;
+            case DoorOpenMethod.Lift:
+                //
+                theDoor.transform.position = new Vector3(temp_X, temp_Y + 10f, temp_Z);
+                break;
+            case DoorOpenMethod.Slide:
+                //
+                break;
+            case DoorOpenMethod.Fall:
+                //
+                break;
+
+            default:
+                //
+                break;
+        }
+
+    }
+   
+    private void LockedDoorCheck()
+    {
+        //check if key item is in player inventory 
+    }
+    private void PatternSwitchCheck()
+    {
+        //call everytime a switch is hit
+        //compare current to answer key
+
+    }
+    private void SimpleSwitchCheck()
+    {
+        //check if every switch that is referenced is true
+    }
+
 }
+public enum DoorOpenMethod
+{
+    Lift,
+    Swing,
+    Slide,
+    Fall,
+}
+
+

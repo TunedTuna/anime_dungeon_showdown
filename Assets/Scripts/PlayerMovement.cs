@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-      
+
         usingNewInput = Keyboard.current != null || Gamepad.current != null;
     }
 
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         ReadInput();            //should be on MainObject
         CheckGrounded();        //i guess main object
         HandleDash();           //ditto
-        
+
         HandleMovement();       //main
         ApplyGravity();
         ApplyFinalMovement();
@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalVel = Vector3.MoveTowards(horizontalVel, targetVelocity, currentAccel * Time.deltaTime);
         velocity.x = horizontalVel.x;
         velocity.z = horizontalVel.z;
-        
+
     }
 
     void ApplyGravity()
@@ -127,7 +127,11 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyFinalMovement()
     {
-        if (knockBackHandler.IsKnockBackActive() || controller.enabled==false) return;//if knockback is active OR controller is off. skipp
+        if (knockBackHandler != null)
+        {
+            if (knockBackHandler.IsKnockBackActive() || controller.enabled == false) return;//if knockback is active OR controller is off. skipp
+
+        }
         //Debug.Log("knock back activity: "+(knockBackHandler.IsKnockBackActive() + " || controller activiry: " + controller.enabled));
         externalVelocity = Vector3.MoveTowards(externalVelocity, Vector3.zero, knockbackDecay * Time.deltaTime);
         Vector3 finalVelocity = velocity + externalVelocity;
@@ -225,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
     public void WarpPlayer(Transform newPoint)
     {
         controller.enabled = false;
-        gameObject.transform.position=newPoint.position;
+        gameObject.transform.position = newPoint.position;
         controller.enabled = true;
 
     }

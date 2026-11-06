@@ -44,7 +44,8 @@ public class CharacterSwap : MonoBehaviour
     {
         PlayerInputController.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
         GlobalEventManager.OnCharacterHasDied += GlobalEventManager_OnCharacterHasDied;
-        Debug.Log("Cheese");
+        GlobalEventManager.OnLevelLoaded += GlobalEventManager_OnLevelLoaded;
+        //Debug.Log("Cheese");
 
         if (activeCharacter != null)
         {
@@ -53,7 +54,14 @@ public class CharacterSwap : MonoBehaviour
         }
     }
 
-
+    private void GlobalEventManager_OnLevelLoaded((GameObject, GameObject) obj)
+    {
+        characterA = obj.Item1;
+        characterB = obj.Item2;
+        ForceStart();
+        RefreshCharacterData(CharacterData_A, CharacterData_B);
+        Debug.Log("inPlayer swap!");
+    }
 
     private void PlayerInputController_OnCharactersSwapped()
     {
@@ -67,6 +75,29 @@ public class CharacterSwap : MonoBehaviour
     void Start()
     {
 
+        activeCharacter = startWithCharacterA ? characterA : characterB;
+        EnablePlayerMovement();
+        if (characterA != null && characterB != null)
+        {
+            characterA.SetActive(startWithCharacterA);
+            characterB.SetActive(!startWithCharacterA);
+            characterNameA = characterA.GetComponent<ICharacterValues>().GetCharacterName();
+            characterNameB = characterB.GetComponent<ICharacterValues>().GetCharacterName();
+            activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
+        }
+
+        mainCamera = Camera.main;
+        if (mainCamera != null)
+            camFollow = mainCamera.GetComponent<CameraFollow>();
+
+        if (camFollow != null && activeCharacter != null)
+        {
+            camFollow.SetTarget(activeCharacter.transform);
+        }
+    }
+
+    private void ForceStart()
+    {
         activeCharacter = startWithCharacterA ? characterA : characterB;
         EnablePlayerMovement();
         if (characterA != null && characterB != null)
@@ -125,6 +156,7 @@ public class CharacterSwap : MonoBehaviour
         //don't forget to dislike and unsubscribe!
         PlayerInputController.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
         GlobalEventManager.OnCharacterHasDied -= GlobalEventManager_OnCharacterHasDied;
+        GlobalEventManager.OnLevelLoaded -= GlobalEventManager_OnLevelLoaded;
         DisablePlayerMovement();
 
 
@@ -155,8 +187,13 @@ public class CharacterSwap : MonoBehaviour
         //ahh
         characterA.GetComponent<AbilityManager>().SetUpSO();
         characterB.GetComponent<AbilityManager>().SetUpSO();
+        //ugh
+        characterA.GetComponent<VisualHelper>().SpriteChangeFromCharacterChange(a.SpritePreview);
+        characterB.GetComponent<VisualHelper>().SpriteChangeFromCharacterChange(b.SpritePreview);
         //oof
         activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
+
+        GlobalEventManager.Fire_OnTeamFilled();
     }
     public (CharacterData_SO, CharacterData_SO) GetCurrentPart()
     {

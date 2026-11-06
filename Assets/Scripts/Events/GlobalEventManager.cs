@@ -24,6 +24,11 @@ public static class GlobalEventManager
     //deaths??
     public static event Action<GameObject> OnCharacterHasDied;
 
+    //character slect conrifm
+    public static event Action OnTeamFilled;
+
+    //spawn characters in new level?
+    public static event Action<(GameObject, GameObject)> OnLevelLoaded;
 
    
 
@@ -43,5 +48,14 @@ public static class GlobalEventManager
     public static void Fire_OnCharacterHasDied(GameObject Character)
     {
         OnCharacterHasDied?.Invoke(Character);
+    }
+    public static void Fire_OnTeamFilled()
+    {
+        OnTeamFilled?.Invoke();
+    }
+    public static void Fire_OnLevelLoaded(GameObject Character, GameObject Character2)
+    {
+        (GameObject, GameObject) cheese= (Character, Character2);
+        OnLevelLoaded?.Invoke(cheese);
     }
 }

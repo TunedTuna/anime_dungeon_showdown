@@ -9,6 +9,8 @@ public class ItemController : MonoBehaviour {
     private Vector3 startPos;
     
     public AudioSource CoinSource;
+
+    [SerializeField] private Key_SO keyRef;
     void Start()
     {
         startPos = transform.position;
@@ -27,6 +29,15 @@ public class ItemController : MonoBehaviour {
     public void playCoinSound() {
         Debug.Log("PLAY SOUND");
         CoinSource.Play();
+    }
+    public Key_SO GetKeyRef() 
+    { 
+        DisableBoxCollider();
+        return  keyRef;
+    }
+    public void DisableBoxCollider()
+    {
+        GetComponent<BoxCollider>().enabled = false;
     }
 }
 

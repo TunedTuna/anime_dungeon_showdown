@@ -14,7 +14,7 @@ public static class GlobalEventManager
     //abilty manager
     //------------------------------------------------
 
-    //input swap
+    //input swap this is just used to en
     public static event Action OnGoingToInput_UI;
     public static event Action OnGoingToInput_Player;
 
@@ -30,6 +30,7 @@ public static class GlobalEventManager
     //spawn characters in new level?
     public static event Action<(GameObject, GameObject)> OnLevelLoaded;
 
+    public static event Action<LeverSwitchSO> OnToggleLever;
    
 
     public static void Fire_GoingToInput_UI()
@@ -57,5 +58,9 @@ public static class GlobalEventManager
     {
         (GameObject, GameObject) cheese= (Character, Character2);
         OnLevelLoaded?.Invoke(cheese);
+    }
+    public static void Fire_OnToggleLever(LeverSwitchSO incomingLeverResponse)
+    {
+        OnToggleLever?.Invoke(incomingLeverResponse);
     }
 }

@@ -10460,9 +10460,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790e5dd86872cab4881dd399e1aee9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hud: {fileID: 1066434249830183859}
   characterSelectUI: {fileID: 6727638466512995186}
   notificationPanelUI: {fileID: 781055055946334141}
-  isUIOpen: 0
+  pauseUI: {fileID: 0}
+  isUIopen: 0
+  isGameOver: 0
 --- !u!1 &6604172258981467658
 GameObject:
   m_ObjectHideFlags: 0

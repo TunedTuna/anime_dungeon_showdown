@@ -3,6 +3,8 @@ using UnityEngine;
 public class TestGameManager : MonoBehaviour
 {
     public static TestGameManager Instance { get; private set; }
+
+
     private void Awake()
     {
         // Check if a GameManager already exists in the scene
@@ -18,4 +20,10 @@ public class TestGameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void GlassGM()
+    {
+        Destroy(gameObject);
+    }
+
 }
+

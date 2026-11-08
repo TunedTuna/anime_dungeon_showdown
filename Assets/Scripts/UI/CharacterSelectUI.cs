@@ -54,7 +54,7 @@ public class CharacterSelectUI : MonoBehaviour, IUserInterface
     {
         HideUI();
         RosterSlotDecorator.OnUpdateCharacterSelectUI -= RosterSlotDecorator_OnUpdateCharacterSelectUI;
-        UserInterfaceInputController.Instance.OnSwap -= UserInterfaceInputController_OnSwap;
+        UserInterfaceInputController.Instance.OnSwap_UI -= UserInterfaceInputController_OnSwap;
 
     }
     private void OnEnable()
@@ -63,7 +63,7 @@ public class CharacterSelectUI : MonoBehaviour, IUserInterface
         RosterSlotDecorator.OnUpdateCharacterSelectUI += RosterSlotDecorator_OnUpdateCharacterSelectUI;
         if (UserInterfaceInputController.Instance != null)//todo fix this race condition
         {
-            UserInterfaceInputController.Instance.OnSwap += UserInterfaceInputController_OnSwap;
+            UserInterfaceInputController.Instance.OnSwap_UI += UserInterfaceInputController_OnSwap;
             UserInterfaceInputController.Instance.OnSubmit += UserInterfaceCOntroller_OnSubmit;
 
         }
@@ -78,7 +78,8 @@ public class CharacterSelectUI : MonoBehaviour, IUserInterface
     private void UserInterfaceCOntroller_OnSubmit(object sender, System.EventArgs e)
     {
         CharacterSwap.instance.RefreshCharacterData(tempSlotB_SO, tempSlotA_SO);
-        GlobalEventManager.Fire_GoingToInput_Player();
+        InputSwapHandler.Instance.EnablePlayerController();
+
         HideUI();
     }
 

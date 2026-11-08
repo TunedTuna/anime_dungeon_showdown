@@ -8,13 +8,13 @@ public class InputSwapHandler : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        CheckIfInGamePlayScene();
     }
     public void EnableUserInterfaceInput()
     {
         userInterfaceInput.enabled = true;
         playerInput.enabled = false;
        
-        GameplayUI.Instance.HideUI();
 
         //--invoke ya boy GlobalEventManager---
         GlobalEventManager.Fire_GoingToInput_UI();
@@ -24,9 +24,16 @@ public class InputSwapHandler : MonoBehaviour
         playerInput.enabled = true;
         userInterfaceInput.enabled = false;
         
-        GameplayUI.Instance.ShowUI();
 
         //---invoke ya boy GlobalEventManager---
         GlobalEventManager.Fire_GoingToInput_Player();
+    }
+
+    private void CheckIfInGamePlayScene()
+    {
+        if (CharacterSwap.instance != null)
+        {
+            EnablePlayerController();
+        }
     }
 }

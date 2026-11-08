@@ -1,7 +1,7 @@
 using UnityEngine;
 /// <summary>
 /// helper to CHaracterSwap 
-/// this script spawns the game object, uses Character Swap to decorate, then character swap to follow cammera
+/// this script spawns the GAME OBJECTS , uses Character Swap to decorate, then character swap to follow cammera
 /// this could live outside game manager??
 /// </summary>
 public class CharacterSpawner : MonoBehaviour

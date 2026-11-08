@@ -29,6 +29,7 @@ public class GameOverUI : MonoBehaviour
     }
     private void ReturnToMainMenu()
     {
+        TestGameManager.Instance.GlassGM();
         SceneManager.LoadScene((int)SceneSelectorEnum.MainMenuVer2);
     }
 

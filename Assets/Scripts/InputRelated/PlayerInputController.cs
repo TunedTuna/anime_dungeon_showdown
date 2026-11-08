@@ -33,6 +33,8 @@ public class PlayerInputController : MonoBehaviour
     //menu
     public static event Action OnPauseOpened;
 
+    //what ;-;
+    private InputSwapHandler inputSwap;
     private void Awake()
     {
         instance = this;
@@ -56,11 +58,14 @@ public class PlayerInputController : MonoBehaviour
         inputActPlayer.Pause.performed += Pause_performed;
         //close?
         //why am i doubling the events
+        //;-;
+        inputSwap = GetComponent<InputSwapHandler>();
     }
 
     private void Pause_performed(InputAction.CallbackContext obj)
     {
-        //OnPauseOpened?.Invoke();
+        OnPauseOpened?.Invoke();
+        inputSwap.EnableUserInterfaceInput();
     }
 
     private void SwapCharacters_performed(InputAction.CallbackContext obj)

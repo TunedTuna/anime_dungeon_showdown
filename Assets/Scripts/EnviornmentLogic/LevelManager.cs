@@ -1,16 +1,23 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private List<DoorStuff> doorList = new();
+
+    private void Awake()
     {
-        
+        GlobalEventManager.OnToggleLever += GlobalEventManager_OnToggleLever;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GlobalEventManager_OnToggleLever(LeverSwitchSO temp)
     {
-        
+       for (int i = 0; i < doorList.Count; i++)
+        {
+            if (doorList[i].GetTargetDoorSO()==temp.DoorTarget)
+            {
+                doorList[i].LeverResponse(temp);
+            }
+        }
     }
 }

@@ -2259,7 +2259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6390148177214356093, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
       propertyPath: isNewUIConnectionBeingUsed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6971789532992613155, guid: 724f05846435f6f45831aa442a07e4ba, type: 3}
       propertyPath: m_Name
@@ -3539,6 +3539,10 @@ PrefabInstance:
     - target: {fileID: 7488089211112584782, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781523544463086284, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8148,7 +8152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3337139966031159865, guid: 86fb2fb70f28ed047b4472d3a78a8ecc, type: 3}
       propertyPath: isNewUIConnectionBeingUsed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4873825361193965024, guid: 86fb2fb70f28ed047b4472d3a78a8ecc, type: 3}
       propertyPath: m_Sprite

@@ -9,8 +9,11 @@ public class UserInterfaceInputController : MonoBehaviour
     InputSystem_Actions.UIActions inputActUI;
     public event EventHandler OnCancel;
     public event EventHandler OnCloseAll;
-    public event EventHandler OnSwap;//this name gonna bite me in ass later
+    public event EventHandler OnSwap_UI;//this name gonna bite me in ass later
     public event EventHandler OnSubmit;
+
+    //what ;-;
+    private InputSwapHandler inputSwap;
 
     private void Awake()
     {
@@ -27,6 +30,8 @@ public class UserInterfaceInputController : MonoBehaviour
         inputActUI.CloseAll.performed += CloseAll_performed;
         inputActUI.Swap.performed += Swap_performed;
         inputActUI.Submit.performed += Submit_performed;
+        
+        inputSwap = GetComponent<InputSwapHandler>();
     }
 
     private void Submit_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -36,13 +41,14 @@ public class UserInterfaceInputController : MonoBehaviour
 
     private void Swap_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-       OnSwap?.Invoke(this,EventArgs.Empty);
+       OnSwap_UI?.Invoke(this,EventArgs.Empty);
     }
 
     private void CloseAll_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         Debug.Log("Inside UI COntroller. fireing close all");
         OnCloseAll?.Invoke(this, EventArgs.Empty);
+        inputSwap.EnablePlayerController();
     }
 
     private void Cancel_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

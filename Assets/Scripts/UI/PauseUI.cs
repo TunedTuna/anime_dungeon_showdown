@@ -32,6 +32,7 @@ public class PauseUI : MonoBehaviour, IUserInterface
     }
     private void ReturnToMainMenu()
     {
+        TestGameManager.Instance.GlassGM();
         SceneManager.LoadScene((int)SceneSelectorEnum.MainMenuVer2);
     }
     public void HideUI()//now part of contract

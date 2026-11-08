@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 
 /* Senen Bagos
@@ -20,7 +21,10 @@ public class Inventory : MonoBehaviour {
     
     public event Action OnInventoryChanged;
     public TextMeshProUGUI coinText; //tuna//this ref being on player causes problem, ecpecially if chani
-    [SerializeField] private bool isNewUIConnectionBeingUsed = false; //connects via instance for scene change
+    [SerializeField] private bool isNewUIConnectionBeingUsed = false; //tuna- connects via instance for scene change
+
+    [SerializeField] private List<Key_SO> keyItems = new();
+    private const string KEY_TAG = "Key";
     
     private void Update() {
         
@@ -70,6 +74,11 @@ public class Inventory : MonoBehaviour {
                 coinText.text = "Coins: " + Coins;
 
             }
+        }
+        if (other.gameObject.CompareTag(KEY_TAG))
+        {
+            KeyItem_AddKey(other.gameObject.GetComponent<ItemController>().GetKeyRef());
+            Destroy(other.gameObject);
         }
     }
     
@@ -138,5 +147,13 @@ public class Inventory : MonoBehaviour {
     
     public GameObject[] getInventoryArray() {
         return inventory;
+    }
+    public List<Key_SO> GetKeys()
+    {
+        return keyItems;
+    }
+    private void KeyItem_AddKey(Key_SO temp)
+    {
+        keyItems.Add(temp);
     }
 }

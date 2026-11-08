@@ -27,7 +27,7 @@ public class CharacterSelectHandler : MonoBehaviour
             //todo replace w/ parent handler
             ParentUI.Instance.ActivateCharacterSelectUI();
 
-            GlobalEventManager.Fire_GoingToInput_UI();
+            InputSwapHandler.Instance.EnableUserInterfaceInput();
 
         }
     }

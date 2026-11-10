@@ -74,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3265717239187465120}
   m_Layer: 0
-  m_Name: HealthHolder
+  m_Name: HealthObjectHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

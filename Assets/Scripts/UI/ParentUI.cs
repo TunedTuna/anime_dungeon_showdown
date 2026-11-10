@@ -24,8 +24,11 @@ public class ParentUI : MonoBehaviour
         UserInterfaceInputController.Instance.OnCancel += UserInterfaceInput_OnCancel;
         UserInterfaceInputController.Instance.OnCloseAll += UserInterfaceInput_OnCloseAllMenus;
         PlayerInputController.OnPauseOpened += PlayerInputController_OnPauseOpened;
+        
         DisableChildren_Menus();
     }
+
+  
 
     private void PlayerInputController_OnPauseOpened()
     {

@@ -44,6 +44,10 @@ public class CharacterData_SO : ScriptableObject
     [SerializeField] private Abilities_SO ability_1;
     [SerializeField] private Abilities_SO ability_2;
     [SerializeField] private Abilities_SO ability_3;
+
+    [Header("RangedStuff")]
+    [SerializeField] private int maxClip;
+    
     public string CharacterName => characterName;
     public CharacterRole_Enum CharacterRole => characterRole;
 
@@ -82,6 +86,9 @@ public class CharacterData_SO : ScriptableObject
     public Abilities_SO Ability_1 => ability_1;
     public Abilities_SO Ability_2 => ability_2;
     public Abilities_SO Ability_3 => ability_3;
+
+    [Header("RangedStuff")]
+    public int MaxClip=> maxClip;
 
 
 

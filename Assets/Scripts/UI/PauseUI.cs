@@ -20,6 +20,14 @@ public class PauseUI : MonoBehaviour, IUserInterface
         resumeBtn.onClick.AddListener(() => { ResumeGame(); });
         settingsBtn.onClick.AddListener(() => {OpenSettings(); });
         mainMenuBtn.onClick.AddListener(() => {ReturnToMainMenu(); });
+        
+    }
+    private void OnDisable()
+    {
+        resumeBtn.onClick.RemoveAllListeners();
+        settingsBtn.onClick.RemoveAllListeners();
+        mainMenuBtn.onClick.RemoveAllListeners();
+        HideUI();
     }
     private void ResumeGame()
     {

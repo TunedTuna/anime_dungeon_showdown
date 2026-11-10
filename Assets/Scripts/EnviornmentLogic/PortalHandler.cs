@@ -24,6 +24,7 @@ public class PortalHandler : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider.enabled = false; //no dungeon selected
+       
     }
     private void OnDisable()
     {

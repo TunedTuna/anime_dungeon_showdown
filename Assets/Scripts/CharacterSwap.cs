@@ -102,6 +102,8 @@ public class CharacterSwap : MonoBehaviour
             characterNameA = characterA.GetComponent<ICharacterValues>().GetCharacterName();
             characterNameB = characterB.GetComponent<ICharacterValues>().GetCharacterName();
             activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
+            AmmoUIHandle();
+            
             HealthBar_SubMemberUI.Instance.DecorateSub(characterB.GetComponent<PlayerHealth>().GetCurrentHp(),characterB.GetComponent<PlayerHealth>().GetMaxHp());
         }
 
@@ -138,6 +140,7 @@ public class CharacterSwap : MonoBehaviour
 
 
         activeCharacter.GetComponent<AbilityManager>().AbilitySwapUI();
+        AmmoUIHandle();
 
         if (camFollow != null)
             camFollow.SetTarget(activeCharacter.transform);
@@ -159,6 +162,20 @@ public class CharacterSwap : MonoBehaviour
 
 
 
+    }
+    private void AmmoUIHandle()
+    {
+        if (activeCharacter.GetComponent<CharacterA>() != null)
+        {
+            //hide ammo counter
+            GlobalEventManager.Fire_OnToggleAmmoUI(false);
+        }
+        else if (activeCharacter.GetComponent<CharacterB>() != null)
+        {
+            //show ammo counter
+            GlobalEventManager.Fire_OnToggleAmmoUI(true);
+
+        }
     }
 
     public void DisablePlayerMovement()

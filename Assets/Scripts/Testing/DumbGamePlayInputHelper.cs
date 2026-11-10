@@ -15,14 +15,14 @@ public class DumbGamePlayInputHelper : MonoBehaviour
     private void GlobalEventManager_OnGoingToInput_UI()
     {
         PlayerThingy.SetActive(false);
-        Debug.Log("------------disabling player object inpiut");
+        //Debug.Log("------------disabling player object inpiut");
         isCHildEnabled = PlayerThingy.activeInHierarchy;
     }
 
     private void GlobalEventManager_OnGoingToInput_Player()
     {
         PlayerThingy.SetActive(true);
-        Debug.Log("re enabling player object inpiut");
+        //Debug.Log("re enabling player object inpiut");
         isCHildEnabled = PlayerThingy.activeInHierarchy;
     }
     private void OnDisable()

@@ -77,7 +77,7 @@ public class CharacterSelectUI : MonoBehaviour, IUserInterface
 
     private void UserInterfaceCOntroller_OnSubmit(object sender, System.EventArgs e)
     {
-        CharacterSwap.instance.RefreshCharacterData(tempSlotB_SO, tempSlotA_SO);
+        CharacterSwap.instance.RefreshCharacterData(tempSlotA_SO, tempSlotB_SO);
         InputSwapHandler.Instance.EnablePlayerController();
 
         HideUI();

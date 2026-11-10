@@ -10,8 +10,11 @@ public class CharacterB : MonoBehaviour,ICharacterValues
     public float baseDamage = 50f;
     public float attackRate = 1f;
     public Transform shootPoint;
-    public GameObject shootEffect;
+    public GameObject shootEffect; //<-this dude should hold bulletGame object script for bullet travel
     private float attackTimer;
+    [SerializeField] private int reserveBullets;
+    [SerializeField] private int maxClip;
+    [SerializeField] private int currentClip;
 
     [Header("Kamehameha Beam")]
     public KeyCode ultKey = KeyCode.Q;
@@ -46,12 +49,11 @@ public class CharacterB : MonoBehaviour,ICharacterValues
     public string characterName = "Kilku";
 
     [Header("Misc")]
-    [SerializeField] private bool isUsingBaseTest=false;
-
+    [SerializeField] private bool isUsingAbilityManager=false;
     void Update()
     {
         HandleBaseAttack();
-        if (!isUsingBaseTest)
+        if (!isUsingAbilityManager)
         {
             if (Input.GetKeyDown(ultKey) && canUseUlt)
                 StartCoroutine(UseKamehameha());
@@ -86,16 +88,32 @@ public class CharacterB : MonoBehaviour,ICharacterValues
     }
     void BaseAttack()
     {
-        if (shootEffect != null)
-            Instantiate(shootEffect, shootPoint.position, shootPoint.rotation);
-
-        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, Mathf.Infinity))
+        if (currentClip == 0)
         {
-            IDamageable enemy = hit.collider.GetComponent<IDamageable>();
-
-            if (enemy != null)
-                enemy.TakeDamage(baseDamage);
+            //reload
+            currentClip = maxClip;
+            GlobalEventManager.Fire_OnRangedCharacterReload();
+            return;
         }
+        else
+        {
+            currentClip -= 1;
+            GlobalEventManager.Fire_OnRangedCharacterFired(currentClip);
+        }
+        if (shootEffect != null)
+        {
+            GameObject ww = Instantiate(shootEffect, shootPoint.position, shootPoint.rotation);
+            ww.GetComponent<BulletHandler>().SetDamage(baseDamage);
+
+        }
+       
+        //if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, Mathf.Infinity))
+        //{
+        //    IDamageable enemy = hit.collider.GetComponent<IDamageable>();
+
+        //    if (enemy != null)
+        //        enemy.TakeDamage(baseDamage);
+        //}
     }
 
     IEnumerator UseKamehameha()
@@ -192,7 +210,7 @@ public class CharacterB : MonoBehaviour,ICharacterValues
 
     void OnEnable()
     {
-
+        
         canUseUlt = true;
         canUseStun = true;
         canUseNeedler = true;
@@ -227,6 +245,11 @@ public class CharacterB : MonoBehaviour,ICharacterValues
         {
             chd_SO = CharacterSwap.instance.GetSlotData_B();
             characterName = chd_SO.CharacterName;
+            currentClip= chd_SO.MaxClip;
+            maxClip = currentClip;
+            GlobalEventManager.Fire_OnRangedCharacterDecorateUI(maxClip);
+            Debug.Log("Character selection change ammou update");
         }
     }
+
 }

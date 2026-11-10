@@ -8,6 +8,8 @@ public class GameplayUI : MonoBehaviour,IUserInterface
     public AbilityUI ability3;
     public AbilityUI ability4;
 
+    [SerializeField] private GameObject AmmoUI;
+
 
     //UI should listen to an event
     //current set up has the abilites fixed positions...
@@ -22,6 +24,20 @@ public class GameplayUI : MonoBehaviour,IUserInterface
         GlobalEventManager.OnGoingToInput_Player += GlobalEventManager_OnGoingToInput_Player;
         GlobalEventManager.OnGoingToInput_UI += GlobalEventManager_OnGoingToInput_UI;
         GlobalEventManager.OnGameOver += GlobalEventManager_OnGameOver;
+        GlobalEventManager.OnToggleAmmoUI += GlobalEventManager_OnToggleAmmoUI;
+        GlobalEventManager.OnRangedCharacterDecorateUI += GlobalEventManager_OnRangedCharacterDecorateUI;
+    }
+
+    private void GlobalEventManager_OnRangedCharacterDecorateUI(int obj)
+    {
+        AmmoUI.GetComponent<RangedCharacterAmmoUI>().SetRangedInfoUI(obj);
+    }
+
+    private void GlobalEventManager_OnToggleAmmoUI(bool obj)
+    {
+
+        AmmoUI.SetActive(obj);
+        
     }
 
     private void GlobalEventManager_OnGameOver()
@@ -94,5 +110,7 @@ public class GameplayUI : MonoBehaviour,IUserInterface
         GlobalEventManager.OnGoingToInput_Player -= GlobalEventManager_OnGoingToInput_Player;
         GlobalEventManager.OnGoingToInput_UI -= GlobalEventManager_OnGoingToInput_UI;
         GlobalEventManager.OnGameOver -= GlobalEventManager_OnGameOver;
+        GlobalEventManager.OnToggleAmmoUI -= GlobalEventManager_OnToggleAmmoUI;
+        GlobalEventManager.OnRangedCharacterDecorateUI -= GlobalEventManager_OnRangedCharacterDecorateUI;
     }
 }

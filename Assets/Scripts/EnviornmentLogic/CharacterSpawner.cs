@@ -17,8 +17,7 @@ public class CharacterSpawner : MonoBehaviour
     }
     private void SpawnObjects()
     {
-        
-        
+
         GameObject gameObject_1 =  Instantiate(ChA_Obj, Spot_1);
         GameObject gameObject_2 = Instantiate(ChB_Obj, Spot_2);
 

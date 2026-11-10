@@ -37,6 +37,12 @@ public static class GlobalEventManager
     public static event Action OnKeyUsed;
 
     public static event Action<float> OnHealActiveCharacter;
+
+    //ui 
+    public static event Action<bool> OnToggleAmmoUI;
+    public static event Action<int> OnRangedCharacterDecorateUI;
+    public static event Action<int> OnRangedCharacterFired;
+    public static event Action OnRangedCharacterReload;
     public static void Fire_GoingToInput_UI()
     {
         OnGoingToInput_UI?.Invoke();
@@ -78,5 +84,21 @@ public static class GlobalEventManager
     public static void Fire_OnHealActiveCharacter(float hpToBeRestored)
     {
         OnHealActiveCharacter?.Invoke(hpToBeRestored);
+    }
+    public static void Fire_OnToggleAmmoUI(bool temp)
+    {
+        OnToggleAmmoUI?.Invoke(temp);
+    }
+    public static void Fire_OnRangedCharacterFired(int currentClip)
+    {
+        OnRangedCharacterFired?.Invoke(currentClip);
+    }
+    public static void Fire_OnRangedCharacterReload()
+    {
+        OnRangedCharacterReload?.Invoke();
+    }
+    public static void Fire_OnRangedCharacterDecorateUI(int maxClip)
+    {
+        OnRangedCharacterDecorateUI?.Invoke(maxClip);
     }
 }

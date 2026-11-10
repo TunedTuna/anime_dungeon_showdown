@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3700931701754922369, guid: 69b24e01950b04143be0c4d70836f275, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7733816261240220977, guid: 69b24e01950b04143be0c4d70836f275, type: 3}
       propertyPath: maxHealth
       value: 200
@@ -115,7 +119,10 @@ MonoBehaviour:
   baseDamage: 50
   attackRate: 1
   shootPoint: {fileID: 169950239778949308}
-  shootEffect: {fileID: 0}
+  shootEffect: {fileID: 9062064769866209780, guid: fe69759d8d4a31846819391f37123554, type: 3}
+  reserveBullets: 0
+  maxClip: 0
+  currentClip: 0
   ultKey: 113
   beamDuration: 5
   beamCooldown: 5
@@ -135,6 +142,7 @@ MonoBehaviour:
   needleSpeed: 25
   needleCooldown: 5
   characterName: Guy Feiri
+  isUsingAbilityManager: 1
 --- !u!1 &2015377343485011302 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3098368884308879451, guid: 69b24e01950b04143be0c4d70836f275, type: 3}

@@ -1,10 +1,24 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputSwapHandler : MonoBehaviour
 {
     public static InputSwapHandler Instance { get; private set; }
     [SerializeField] private PlayerInputController playerInput;
     [SerializeField] private UserInterfaceInputController userInterfaceInput;
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        CheckIfInGamePlayScene();
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -35,5 +49,10 @@ public class InputSwapHandler : MonoBehaviour
         {
             EnablePlayerController();
         }
+        else
+        {
+            EnableUserInterfaceInput();
+        }
     }
+  
 }

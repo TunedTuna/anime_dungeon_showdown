@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
     private void GlobalEventManager_OnToggleLever(LeverSwitchSO temp)
     {
+        if (doorList.Count == 0) return;
        for (int i = 0; i < doorList.Count; i++)
         {
             if (doorList[i].GetTargetDoorSO()==temp.DoorTarget)

@@ -47,7 +47,7 @@ public class CharacterSwap : MonoBehaviour
         GlobalEventManager.OnCharacterHasDied += GlobalEventManager_OnCharacterHasDied;
         GlobalEventManager.OnLevelLoaded += GlobalEventManager_OnLevelLoaded;
         GlobalEventManager.OnHealActiveCharacter += GlobalEventManager_OnHealActiveCharacter;
-        //Debug.Log("Cheese");
+        
 
         if (activeCharacter != null)
         {
@@ -63,11 +63,12 @@ public class CharacterSwap : MonoBehaviour
 
     private void GlobalEventManager_OnLevelLoaded((GameObject, GameObject) obj)
     {
+        Debug.Log("inPlayer start swap!");
         characterA = obj.Item1;
         characterB = obj.Item2;
         ForceStart();
         RefreshCharacterData(CharacterData_A, CharacterData_B);
-        Debug.Log("inPlayer swap!");
+        Debug.Log("after swap!");
     }
 
     private void PlayerInputController_OnCharactersSwapped()
@@ -81,8 +82,9 @@ public class CharacterSwap : MonoBehaviour
 
     void Start()
     {
-
+        
         StartCopyPasta();
+      
     }
 
     private void ForceStart()

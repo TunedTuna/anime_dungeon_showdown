@@ -12,8 +12,13 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField] private Transform Spot_2;
     private void Awake()
     {
+        
+    }
+    private void Start()
+    {
         SpawnObjects();
         Debug.Log("SpawningCHaracters??");
+
     }
     private void SpawnObjects()
     {
@@ -22,7 +27,7 @@ public class CharacterSpawner : MonoBehaviour
         GameObject gameObject_2 = Instantiate(ChB_Obj, Spot_2);
 
         GlobalEventManager.Fire_OnLevelLoaded(gameObject_1, gameObject_2);
-
+        Debug.Log("LevelLoaded callled??");
 
     }
 

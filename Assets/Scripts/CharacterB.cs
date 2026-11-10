@@ -248,7 +248,6 @@ public class CharacterB : MonoBehaviour,ICharacterValues
             currentClip= chd_SO.MaxClip;
             maxClip = currentClip;
             GlobalEventManager.Fire_OnRangedCharacterDecorateUI(maxClip);
-            Debug.Log("Character selection change ammou update");
         }
     }
 

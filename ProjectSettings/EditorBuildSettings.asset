@@ -6,8 +6,32 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/TestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: bc1591fee36f4804b82ed96559040949
+  - enabled: 1
+    path: Assets/Scenes/LobbyFloor.unity
+    guid: 1ad0a635b18eaf34ab57818e4f034306
+  - enabled: 1
+    path: Assets/Scenes/Dungeon1.unity
+    guid: d8b248528b319234e9104b54064636ff
+  - enabled: 1
+    path: Assets/Scenes/Dungeon2.unity
+    guid: f9021759eef64a944826d207fa68621c
+  - enabled: 0
+    path: Assets/Scenes/Dungeon3.unity
+    guid: 4c2a197ff2b62264795be98965d155f3
+  - enabled: 1
+    path: Assets/Scenes/TestSceneApple.unity
+    guid: bcc5d6fdbb5bc1b4e9523746a6aa1e58
+  - enabled: 1
+    path: Assets/Scenes/LobbyFloorVer2.unity
+    guid: 333518d5c3ed48546b2cdc77bb2c4371
+  - enabled: 1
+    path: Assets/Scenes/MainMenuVer2.unity
+    guid: 646041c3a0914e747a01f80fa4ed0125
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

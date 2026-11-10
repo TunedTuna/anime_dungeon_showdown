@@ -7,10 +7,14 @@ public class ItemController : MonoBehaviour {
     public float bounceSpeed = 2f;
 
     private Vector3 startPos;
-    
+    [Header("Coin")]
     public AudioSource CoinSource;
 
+    [Header("KeyStuff")]
     [SerializeField] private Key_SO keyRef;
+
+    [Header("HealthStuff")]
+    [SerializeField] private float hpRestore = 50;
     void Start()
     {
         startPos = transform.position;
@@ -30,14 +34,20 @@ public class ItemController : MonoBehaviour {
         Debug.Log("PLAY SOUND");
         CoinSource.Play();
     }
-    public Key_SO GetKeyRef() 
-    { 
+    public Key_SO GetKeyRef()
+    {
         DisableBoxCollider();
-        return  keyRef;
+        GlobalEventManager.Fire_OnKeyPickedUp();
+        return keyRef;
     }
     public void DisableBoxCollider()
     {
         GetComponent<BoxCollider>().enabled = false;
+    }
+    public void CallHealing()
+    {
+        DisableBoxCollider() ;
+        GlobalEventManager.Fire_OnHealActiveCharacter(hpRestore);
     }
 }
 

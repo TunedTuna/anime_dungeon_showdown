@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - BossWall
   - Key
+  - HealthRestore
   layers:
   - Default
   - TransparentFX

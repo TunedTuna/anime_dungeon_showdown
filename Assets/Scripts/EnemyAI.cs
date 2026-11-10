@@ -30,8 +30,8 @@ public class EnemyAI : MonoBehaviour,IDamageable
     [SerializeField] private ActorVisuals av;
 
     //notify the enemy spawner that they are dead
-    public delegate void EnemyDied();
-    public static event EnemyDied OnEnemyDied;
+    public delegate void EnemyDied(GameObject thisGuy);
+    public  event EnemyDied OnEnemyDied;
 
     void Start()
     {
@@ -150,7 +150,7 @@ public class EnemyAI : MonoBehaviour,IDamageable
     }
     void Die()
     {
-        OnEnemyDied?.Invoke();
-        Destroy(gameObject);
+        OnEnemyDied?.Invoke(gameObject);
+        
     }
 }

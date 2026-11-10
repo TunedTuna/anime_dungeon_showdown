@@ -32,6 +32,7 @@ public class CharacterSwap : MonoBehaviour
     public bool startWithCharacterA = true;
 
     [SerializeField] private GameObject activeCharacter;
+    
     private Camera mainCamera;
     private CameraFollow camFollow;
 
@@ -45,6 +46,7 @@ public class CharacterSwap : MonoBehaviour
         PlayerInputController.OnCharactersSwapped += PlayerInputController_OnCharactersSwapped;
         GlobalEventManager.OnCharacterHasDied += GlobalEventManager_OnCharacterHasDied;
         GlobalEventManager.OnLevelLoaded += GlobalEventManager_OnLevelLoaded;
+        GlobalEventManager.OnHealActiveCharacter += GlobalEventManager_OnHealActiveCharacter;
         //Debug.Log("Cheese");
 
         if (activeCharacter != null)
@@ -52,6 +54,11 @@ public class CharacterSwap : MonoBehaviour
             EnablePlayerMovement();
 
         }
+    }
+
+    private void GlobalEventManager_OnHealActiveCharacter(float obj)
+    {
+        activeCharacter.GetComponent<PlayerHealth>().RestoreHp(obj);
     }
 
     private void GlobalEventManager_OnLevelLoaded((GameObject, GameObject) obj)
@@ -75,30 +82,18 @@ public class CharacterSwap : MonoBehaviour
     void Start()
     {
 
-        activeCharacter = startWithCharacterA ? characterA : characterB;
-        EnablePlayerMovement();
-        if (characterA != null && characterB != null)
-        {
-            characterA.SetActive(startWithCharacterA);
-            characterB.SetActive(!startWithCharacterA);
-            characterNameA = characterA.GetComponent<ICharacterValues>().GetCharacterName();
-            characterNameB = characterB.GetComponent<ICharacterValues>().GetCharacterName();
-            activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
-        }
-
-        mainCamera = Camera.main;
-        if (mainCamera != null)
-            camFollow = mainCamera.GetComponent<CameraFollow>();
-
-        if (camFollow != null && activeCharacter != null)
-        {
-            camFollow.SetTarget(activeCharacter.transform);
-        }
+        StartCopyPasta();
     }
 
     private void ForceStart()
     {
+        StartCopyPasta();
+    }
+
+    private void StartCopyPasta()
+    {
         activeCharacter = startWithCharacterA ? characterA : characterB;
+        //subCharacter = 
         EnablePlayerMovement();
         if (characterA != null && characterB != null)
         {
@@ -107,6 +102,7 @@ public class CharacterSwap : MonoBehaviour
             characterNameA = characterA.GetComponent<ICharacterValues>().GetCharacterName();
             characterNameB = characterB.GetComponent<ICharacterValues>().GetCharacterName();
             activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
+            HealthBar_SubMemberUI.Instance.DecorateSub(characterB.GetComponent<PlayerHealth>().GetCurrentHp(),characterB.GetComponent<PlayerHealth>().GetMaxHp());
         }
 
         mainCamera = Camera.main;
@@ -127,7 +123,7 @@ public class CharacterSwap : MonoBehaviour
             Debug.LogWarning("Character references missing!");
             return;
         }
-
+        HealthBar_SubMemberUI.Instance.DecorateSub(activeCharacter.GetComponent<PlayerHealth>().GetCurrentHp(), activeCharacter.GetComponent<PlayerHealth>().GetMaxHp());
         GameObject nextCharacter = (activeCharacter == characterA) ? characterB : characterA;
 
         Vector3 currentPos = activeCharacter.transform.position;
@@ -139,6 +135,7 @@ public class CharacterSwap : MonoBehaviour
 
         activeCharacter = nextCharacter;
         activeCharacter.GetComponent<PlayerHealth>().PassOnUIdata();
+
 
         activeCharacter.GetComponent<AbilityManager>().AbilitySwapUI();
 
@@ -157,6 +154,7 @@ public class CharacterSwap : MonoBehaviour
         PlayerInputController.OnCharactersSwapped -= PlayerInputController_OnCharactersSwapped;
         GlobalEventManager.OnCharacterHasDied -= GlobalEventManager_OnCharacterHasDied;
         GlobalEventManager.OnLevelLoaded -= GlobalEventManager_OnLevelLoaded;
+        GlobalEventManager.OnHealActiveCharacter -= GlobalEventManager_OnHealActiveCharacter;
         DisablePlayerMovement();
 
 

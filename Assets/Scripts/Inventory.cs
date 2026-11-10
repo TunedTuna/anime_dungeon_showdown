@@ -26,12 +26,7 @@ public class Inventory : MonoBehaviour {
     [SerializeField] private List<Key_SO> keyItems = new();
     private const string KEY_TAG = "Key";
     
-    private void Update() {
-        
-        // if (Input.GetKeyDown(KeyCode.Q)) {
-        //     DropItem();
-        // }
-    }
+
     private void Start()
     {
         if (isNewUIConnectionBeingUsed)
@@ -78,6 +73,11 @@ public class Inventory : MonoBehaviour {
         if (other.gameObject.CompareTag(KEY_TAG))
         {
             KeyItem_AddKey(other.gameObject.GetComponent<ItemController>().GetKeyRef());
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("HealthRestore"))
+        {
+            other.gameObject.GetComponent<ItemController>().CallHealing();
             Destroy(other.gameObject);
         }
     }
@@ -156,4 +156,5 @@ public class Inventory : MonoBehaviour {
     {
         keyItems.Add(temp);
     }
+
 }

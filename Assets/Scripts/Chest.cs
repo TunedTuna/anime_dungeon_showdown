@@ -11,6 +11,8 @@ public class Chest : MonoBehaviour
     [SerializeField] private TextMeshProUGUI panelText;
     private string notificationText = "Press E to open Chest";
     [SerializeField] private GameObject chestLid;//rotate to -61
+
+    [SerializeField] private ScriptableObject tempLoot;
     private void Start()
     {
         PlayerInputController.OnInteract += PlayerInputController_OnInteract;
@@ -75,6 +77,10 @@ public class Chest : MonoBehaviour
     private void HideText()
     {
         pressChestText.SetActive(false);
+    }
+    public void SetLoot(ScriptableObject temp)
+    {
+        tempLoot= temp;
     }
     private void OnDisable()
     {

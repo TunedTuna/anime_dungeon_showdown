@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DoorStuff : MonoBehaviour
@@ -11,6 +12,7 @@ public class DoorStuff : MonoBehaviour
     [SerializeField] private GameObject theDoor;
     [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private Material transparentMat;
+    [SerializeField] private Material baseMat;
 
     [SerializeField] private List<ActivatorInfoClass> activatorList= new(); // hold a list of scriptable objects
     [SerializeField] private bool isOpened = false;
@@ -159,8 +161,7 @@ public class DoorStuff : MonoBehaviour
         {
             case DoorTypeEnum.Gated:
                 //
-                doorGateObj.SetActive(true);
-                boxCollider.enabled = false;
+                CloseGate();
                 break;
             case DoorTypeEnum.Locked:
                 //
@@ -173,7 +174,21 @@ public class DoorStuff : MonoBehaviour
 
         }
     }
-    private void RemoveGate()
+    //CloseGate and RemoveGate public for teesting
+    public void CloseGate()
+    {
+        doorGateObj.SetActive(true);
+        boxCollider.enabled = false;
+        isOpened= false;
+        //should close door?
+        Transform temp = theDoor.transform;
+        float temp_X = temp.position.x;
+        float temp_Y = temp.position.y;
+        float temp_Z = temp.position.z;
+        theDoor.transform.position = new Vector3(temp_X, temp_Y - 10f, temp_Z);
+        theDoor.GetComponent<MeshRenderer>().material = baseMat;
+    }
+    public void RemoveGate()
     {
         doorGateObj.SetActive(false);
         boxCollider.enabled = true;
@@ -195,6 +210,7 @@ public class DoorStuff : MonoBehaviour
             {
                 playerInv.GetKeys().RemoveAt(i);
                 RemoveLock();
+                GlobalEventManager.Fire_OnKeyUsed();
                 return;
             }
             else

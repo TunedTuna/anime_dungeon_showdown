@@ -57,4 +57,23 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         GlobalEventManager.Fire_OnCharacterHasDied(gameObject);
         gameObject.SetActive(false);
     }
+
+    public float GetMaxHp()
+    {
+        return maxHealth;
+    }
+    public float GetCurrentHp()
+    {
+        return currentHealth;
+    }
+    public void RestoreHp(float hpToRestore)
+    {
+        currentHealth += hpToRestore;
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        OnPlayerDamaged?.Invoke(currentHealth);
+
+    }
 }

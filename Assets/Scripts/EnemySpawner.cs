@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using static EnemyAI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave = 0;
     private int aliveEnemies = 0;
 
-    void Start()
+    [SerializeField] private int maxWave = 2;
+
+    [SerializeField] private RoomManager roomManager;
+
+    public void BeginOnslaught()
     {
-        EnemyAI.OnEnemyDied += EnemyAI_OnEnemyDied;
+        roomManager = GetComponent<RoomManager>();
         AutoFindPlayers();
 
         if (enemyPrefab == null)
@@ -39,10 +44,19 @@ public class EnemySpawner : MonoBehaviour
 
         StartCoroutine(WaveLoop());
     }
-
-    private void EnemyAI_OnEnemyDied()
+    private void EnemyAI_OnEnemyDied(GameObject thatGuy)
     {
-        NotifyEnemyDied();
+        aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
+        thatGuy.GetComponent<EnemyAI>().OnEnemyDied -= EnemyAI_OnEnemyDied;
+        Debug.Log("Enemy died. Remaining alive: " + aliveEnemies);
+        Destroy(thatGuy);
+        if (aliveEnemies <= 0 &&currentWave>=maxWave)
+        {
+            if (roomManager != null)
+            {
+                roomManager.DoStuffAfterBattle();
+            }
+        }
     }
 
     void AutoFindPlayers()
@@ -64,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator WaveLoop()
     {
-        while (true)
+        while (currentWave<maxWave)
         {
             while (aliveEnemies > 0)
                 yield return null;
@@ -82,6 +96,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
         }
+
     }
 
     void SpawnEnemy()
@@ -102,11 +117,13 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Spawned enemy at " + spawnPos);
 
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+        enemyAI.OnEnemyDied += EnemyAI_OnEnemyDied;
         if (enemyAI == null)
         {
             Debug.LogWarning("Spawned enemy does not have EnemyAI on it.");
         }
     }
+
 
     Transform GetRandomValidPlayer()
     {
@@ -125,13 +142,9 @@ public class EnemySpawner : MonoBehaviour
         return null;
     }
 
-    public void NotifyEnemyDied()
-    {
-        aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
-        Debug.Log("Enemy died. Remaining alive: " + aliveEnemies);
-    }
+
     private void OnDisable()
     {
-        EnemyAI.OnEnemyDied -= EnemyAI_OnEnemyDied;
+        //EnemyAI.OnEnemyDied -= EnemyAI_OnEnemyDied;
     }
 }

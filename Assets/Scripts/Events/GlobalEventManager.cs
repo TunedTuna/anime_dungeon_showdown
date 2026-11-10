@@ -31,8 +31,12 @@ public static class GlobalEventManager
     public static event Action<(GameObject, GameObject)> OnLevelLoaded;
 
     public static event Action<LeverSwitchSO> OnToggleLever;
-   
 
+    //keys!
+    public static event Action OnKeyPickedUp;
+    public static event Action OnKeyUsed;
+
+    public static event Action<float> OnHealActiveCharacter;
     public static void Fire_GoingToInput_UI()
     {
         OnGoingToInput_UI?.Invoke();
@@ -62,5 +66,17 @@ public static class GlobalEventManager
     public static void Fire_OnToggleLever(LeverSwitchSO incomingLeverResponse)
     {
         OnToggleLever?.Invoke(incomingLeverResponse);
+    }
+    public static void Fire_OnKeyPickedUp()
+    {
+        OnKeyPickedUp?.Invoke();
+    }
+    public static void Fire_OnKeyUsed()
+    {
+        OnKeyUsed?.Invoke();
+    }
+    public static void Fire_OnHealActiveCharacter(float hpToBeRestored)
+    {
+        OnHealActiveCharacter?.Invoke(hpToBeRestored);
     }
 }

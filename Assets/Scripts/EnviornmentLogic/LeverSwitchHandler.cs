@@ -50,13 +50,13 @@ public class LeverSwitchHandler : MonoBehaviour
         isLeverOn = !isLeverOn;
         if (isLeverOn)
         {
-            leverObj.transform.eulerAngles = new Vector3(45f, transform.eulerAngles.y, transform.eulerAngles.z);
+            leverObj.transform.localEulerAngles = new Vector3(45f, transform.localEulerAngles.y, transform.localEulerAngles.z);
             GlobalEventManager.Fire_OnToggleLever(leverSwitchSO);
         }
         else
         {
-            leverObj.transform.eulerAngles = new Vector3(-45f, transform.eulerAngles.y, transform.eulerAngles.z);
-            
+            leverObj.transform.localEulerAngles = new Vector3(-45f, transform.localEulerAngles.y, transform.localEulerAngles.z);
+            GlobalEventManager.Fire_OnToggleLever(leverSwitchSO);
         }
 
         //fire a lever toggled event. one event, but the listener SHOULD toggle the bool

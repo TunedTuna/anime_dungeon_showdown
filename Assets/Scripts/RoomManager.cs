@@ -4,7 +4,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] private GameObject Chest; //when spawn chest, feed it this map's loot table
-    [SerializeField] private List <Transform> chestSpawnLocation = new List<Transform>();
+    [SerializeField] private List<Transform> chestSpawnLocation = new List<Transform>();
     [SerializeField] private TestLootTableHandler lootTableHandler;
     //give a list of enemy so to feed into the EnemySpawner?
 
@@ -13,10 +13,19 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private GameObject deadCharacter;
 
-    
+    [Header("labels")]
+    [SerializeField] private RoomLabelEnum roomLabelEnum;
+    [SerializeField] private CardinalDirectionEnum cardinalDirection;
+    [SerializeField] private CardinalDirectionEnum secondaryCardinalDirection;
+    [SerializeField] private int keyThing;
+
 
     [Header("TestingDoor(s)")]
     [SerializeField] private List<GameObject> doorListObj;
+    [SerializeField] private GameObject northDoorWay;
+    [SerializeField] private GameObject westDoorWay;
+    [SerializeField] private GameObject eastDoorWay;
+    [SerializeField] private GameObject southDoorWay;
 
     private void OnEnable()
     {
@@ -32,7 +41,7 @@ public class RoomManager : MonoBehaviour
 
     private void GlobalEventManager_OnCharacterHasDied(GameObject obj)
     {
-        deadCharacter= obj;
+        deadCharacter = obj;
         //sub member swithc location is inconsistent
         //ReleaseTheGates();
         //boxCollider.enabled = true;
@@ -71,9 +80,49 @@ public class RoomManager : MonoBehaviour
     private void SpawnSomeLoot()
     {
         int randNum = UnityEngine.Random.Range(0, chestSpawnLocation.Count);
-        GameObject tempChest= Instantiate(Chest, chestSpawnLocation[randNum]);
+        GameObject tempChest = Instantiate(Chest, chestSpawnLocation[randNum]);
         tempChest.GetComponent<DumbCHestMiddleManHandler>().GetChestScript().SetLoot(lootTableHandler.GetSomeLoot());
 
 
+    }
+    public void SetRoomLabel(RoomLabelEnum newLabel, CardinalDirectionEnum newDir, CardinalDirectionEnum secNewDir)
+    {
+        roomLabelEnum = newLabel;
+        cardinalDirection = newDir;
+        secondaryCardinalDirection = secNewDir;
+
+    }
+    public RoomLabelEnum GetRoomLabel()
+    {
+        return roomLabelEnum;
+    }
+    public CardinalDirectionEnum GetCardinalDIrectionEnum()
+    {
+        return cardinalDirection;
+    }
+    public CardinalDirectionEnum GetSecondaryCardinalDirection()
+    {
+        return secondaryCardinalDirection;
+    }
+    public int GetKeyThing()
+    {
+        return keyThing;
+    }
+
+    public void OpenDoorWay(int bird)
+    {
+        switch (bird)
+        {
+            case 0:
+                southDoorWay.SetActive(false); break;
+                
+            case 1:
+                westDoorWay.SetActive(false); break;
+                
+            case 2:
+                westDoorWay.SetActive(false); break;
+            case 3:
+                northDoorWay.SetActive(false); break;
+        }
     }
 }

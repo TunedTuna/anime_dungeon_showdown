@@ -63,12 +63,12 @@ public class CharacterSwap : MonoBehaviour
 
     private void GlobalEventManager_OnLevelLoaded((GameObject, GameObject) obj)
     {
-        Debug.Log("inPlayer start swap!");
+        //Debug.Log("inPlayer start swap!");
         characterA = obj.Item1;
         characterB = obj.Item2;
         ForceStart();
         RefreshCharacterData(CharacterData_A, CharacterData_B);
-        Debug.Log("after swap!");
+        //Debug.Log("after swap!");
     }
 
     private void PlayerInputController_OnCharactersSwapped()

@@ -14,11 +14,12 @@ public class DoorStuff : MonoBehaviour
     [SerializeField] private Material transparentMat;
     [SerializeField] private Material baseMat;
 
-    [SerializeField] private List<ActivatorInfoClass> activatorList= new(); // hold a list of scriptable objects
+    [SerializeField] private List<ActivatorInfoClass> activatorList = new(); // hold a list of scriptable objects
     [SerializeField] private bool isOpened = false;
     [SerializeField] private bool isLocked = false;
     [SerializeField] private Key_SO keyItem;
     [SerializeField] private DoorTargetSO doorID;
+    [SerializeField] private Transform orignalDoorPos;
 
     [Header("DoorType?")]
     [SerializeField] private GameObject doorLockObj;
@@ -34,7 +35,7 @@ public class DoorStuff : MonoBehaviour
     private bool playerInRange = false;
     public GameObject notifcationPanel;
     [SerializeField] private TextMeshProUGUI panelText;
-    
+
     private const string unlockedDoorText = "Press E to open Door";
     private const string lockedDoorText = "Press E to unlock Door";
     [SerializeField] private Inventory playerInv;
@@ -45,7 +46,8 @@ public class DoorStuff : MonoBehaviour
         NotificationPanelUI temp = ParentUI.Instance.PassRefDataNotificationUI();
         notifcationPanel = temp.GetPanelGameObject();
         panelText = temp.GetTextMeshProUGUIObject();
-        boxCollider=GetComponent<BoxCollider>();
+        boxCollider = GetComponent<BoxCollider>();
+        orignalDoorPos = theDoor.transform; //old doors cry about this
         DoorAesthetic();
     }
 
@@ -56,7 +58,7 @@ public class DoorStuff : MonoBehaviour
             if (isLocked)
             {
                 LockedDoorCheck();
-                
+
             }
             else
             {
@@ -76,7 +78,7 @@ public class DoorStuff : MonoBehaviour
             playerInRange = true;
             notifcationPanel.SetActive(true);
             //Debug.Log("Press E to open door");
-            if(isLocked)
+            if (isLocked)
             {
                 panelText.text = lockedDoorText;
             }
@@ -85,7 +87,7 @@ public class DoorStuff : MonoBehaviour
                 panelText.text = unlockedDoorText;
 
             }
-            playerInv= other.GetComponent<Inventory>();
+            playerInv = other.GetComponent<Inventory>();
         }
     }
 
@@ -179,13 +181,18 @@ public class DoorStuff : MonoBehaviour
     {
         doorGateObj.SetActive(true);
         boxCollider.enabled = false;
-        isOpened= false;
+        isOpened = false;
         //should close door?
+
         Transform temp = theDoor.transform;
         float temp_X = temp.position.x;
         float temp_Y = temp.position.y;
         float temp_Z = temp.position.z;
-        theDoor.transform.position = new Vector3(temp_X, temp_Y - 10f, temp_Z);
+        if (theDoor.transform.position!=orignalDoorPos.position)
+        {
+            theDoor.transform.position = new Vector3(temp_X, temp_Y - 10f, temp_Z);
+
+        }
         theDoor.GetComponent<MeshRenderer>().material = baseMat;
     }
     public void RemoveGate()
@@ -204,7 +211,8 @@ public class DoorStuff : MonoBehaviour
     private void LockedDoorCheck()
     {
         //check if key item is in player inventory 
-        for(int i=0; i<playerInv.GetKeys().Count; i++)
+        //COMPARES THE NAME OF THE OBJECT NOT A "name" VARIABLE!!
+        for (int i = 0; i < playerInv.GetKeys().Count; i++)
         {
             if (playerInv.GetKeys()[i] == keyItem)
             {
@@ -244,16 +252,16 @@ public class DoorStuff : MonoBehaviour
     }
     private void SimpleSwitchCheck(LeverSwitchSO temp)
     {
-        int numOfActivatorOn= activatorList.Count;
+        int numOfActivatorOn = activatorList.Count;
         //check if every switch that is referenced is true
-        for(int i=0; i < activatorList.Count; i++)
+        for (int i = 0; i < activatorList.Count; i++)
         {
-            if(temp== activatorList[i].activatorData)
+            if (temp == activatorList[i].activatorData)
             {
                 activatorList[i].isActive = true;
-                
+
             }
-            if(activatorList[i].isActive)
+            if (activatorList[i].isActive)
             {
                 numOfActivatorOn--;
             }
@@ -289,7 +297,7 @@ public enum DoorLeverType
 public class ActivatorInfoClass
 {
     public LeverSwitchSO activatorData;
-    public bool isActive =false; //default false
+    public bool isActive = false; //default false
 }
 
 

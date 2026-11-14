@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 /// <summary>
 /// honstly, idk what would go in here. everything but input??
 /// </summary>
@@ -43,6 +44,9 @@ public static class GlobalEventManager
     public static event Action<int> OnRangedCharacterDecorateUI;
     public static event Action<int> OnRangedCharacterFired;
     public static event Action OnRangedCharacterReload;
+
+    //visuals
+    public static event Action<ItemSO> OnItemPickedUp;
     public static void Fire_GoingToInput_UI()
     {
         OnGoingToInput_UI?.Invoke();
@@ -100,5 +104,12 @@ public static class GlobalEventManager
     public static void Fire_OnRangedCharacterDecorateUI(int maxClip)
     {
         OnRangedCharacterDecorateUI?.Invoke(maxClip);
+    }
+
+    public static void Fire_OnItemPickedUp(ItemSO obj)
+    {
+        OnItemPickedUp?.Invoke(obj);
+        //send a scriptableObject to have other systems filter from it??
+        //
     }
 }

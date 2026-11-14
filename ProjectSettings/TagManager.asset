@@ -49,6 +49,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ItemPopUp
+    uniqueID: 1097450397
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1

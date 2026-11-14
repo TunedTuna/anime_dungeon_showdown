@@ -156,6 +156,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9002677747673932049, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
   m_PrefabInstance: {fileID: 1203653075345564516}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8186845221102093937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7001329689702851861, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
+  m_PrefabInstance: {fileID: 1203653075345564516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2224458515742393498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -612,6 +617,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9002677747673932049, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
   m_PrefabInstance: {fileID: 4285470268562149908}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6507900210810156801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7001329689702851861, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
+  m_PrefabInstance: {fileID: 4285470268562149908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5969492054331615872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -690,6 +700,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9002677747673932049, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
   m_PrefabInstance: {fileID: 5969492054331615872}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3746534363677953941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7001329689702851861, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
+  m_PrefabInstance: {fileID: 5969492054331615872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7761611825925622473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -750,6 +765,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6629393517068459249, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
+      propertyPath: eastDoorWay
+      value: 
+      objectReference: {fileID: 8186845221102093937}
+    - target: {fileID: 6629393517068459249, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
+      propertyPath: westDoorWay
+      value: 
+      objectReference: {fileID: 6507900210810156801}
+    - target: {fileID: 6629393517068459249, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
+      propertyPath: northDoorWay
+      value: 
+      objectReference: {fileID: 3746534363677953941}
+    - target: {fileID: 6629393517068459249, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
+      propertyPath: southDoorWay
+      value: 
+      objectReference: {fileID: 1997615994849404525}
     - target: {fileID: 8888969764400447317, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
       propertyPath: m_Name
       value: RoomHolder_Cross
@@ -782,10 +813,10 @@ PrefabInstance:
       addedObject: {fileID: 7075492060429559179}
     - targetCorrespondingSourceObject: {fileID: 7149408670871702433, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 467990482806006377}
+      addedObject: {fileID: 3330423829328087953}
     - targetCorrespondingSourceObject: {fileID: 7149408670871702433, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3330423829328087953}
+      addedObject: {fileID: 467990482806006377}
     - targetCorrespondingSourceObject: {fileID: 7149408670871702433, guid: 52ee00ee30b7c6544a7602a847b7dfb4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5158560245950067461}
@@ -884,5 +915,10 @@ PrefabInstance:
 --- !u!4 &467990482806006377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9002677747673932049, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
+  m_PrefabInstance: {fileID: 8831925469638116216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1997615994849404525 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7001329689702851861, guid: c1d0dc4320dd9434d9b7d0a2422f814e, type: 3}
   m_PrefabInstance: {fileID: 8831925469638116216}
   m_PrefabAsset: {fileID: 0}

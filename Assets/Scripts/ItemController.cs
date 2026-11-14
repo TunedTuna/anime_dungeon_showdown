@@ -38,6 +38,7 @@ public class ItemController : MonoBehaviour {
     {
         DisableBoxCollider();
         GlobalEventManager.Fire_OnKeyPickedUp();
+        GlobalEventManager.Fire_OnItemPickedUp(keyRef);
         return keyRef;
     }
     public void DisableBoxCollider()

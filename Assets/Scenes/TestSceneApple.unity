@@ -1863,6 +1863,7 @@ MonoBehaviour:
   isLocked: 0
   keyItem: {fileID: 0}
   doorID: {fileID: 0}
+  orignalDoorPos: {fileID: 0}
   doorLockObj: {fileID: 0}
   doorGateObj: {fileID: 0}
   patternAnswerCombo: []
@@ -6011,7 +6012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426777700871734444, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7488089211112584782, guid: 74c761316c1f88040b352de3ddb60df9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12737,6 +12738,7 @@ MonoBehaviour:
   isLocked: 0
   keyItem: {fileID: 0}
   doorID: {fileID: 0}
+  orignalDoorPos: {fileID: 0}
   doorLockObj: {fileID: 0}
   doorGateObj: {fileID: 0}
   patternAnswerCombo: []
@@ -14951,6 +14953,7 @@ MonoBehaviour:
   isLocked: 0
   keyItem: {fileID: 0}
   doorID: {fileID: 0}
+  orignalDoorPos: {fileID: 0}
   doorLockObj: {fileID: 0}
   doorGateObj: {fileID: 0}
   patternAnswerCombo: []
@@ -16045,7 +16048,7 @@ Transform:
   m_GameObject: {fileID: 8214601310986894750}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47, y: 0, z: -9.75}
+  m_LocalPosition: {x: 6, y: 0, z: -9.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

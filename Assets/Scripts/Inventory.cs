@@ -73,6 +73,7 @@ public class Inventory : MonoBehaviour {
         if (other.gameObject.CompareTag(KEY_TAG))
         {
             KeyItem_AddKey(other.gameObject.GetComponent<ItemController>().GetKeyRef());
+            
             Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("HealthRestore"))
